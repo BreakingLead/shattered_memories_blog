@@ -10,6 +10,7 @@
 - `dabc965` - Add computer and Japanese notes. Added 49 published Markdown notes under `src/content/blog/05_计算机` and `src/content/blog/06_日语`.
 - `cbb537e` - Add blog folder expand toggle. Added a blog-level control to expand or collapse every folder group in the file-browser list.
 - `615bc45` - Animate blog folder expansion. Added height, opacity, and vertical-offset transitions for folder content when opening or closing groups.
+- `9cc5e96` - Add blog browser discovery tools. Added quick filtering, persistent folder expansion state, and a latest-post jump action to the blog file browser.
 
 ## Work Process
 
@@ -22,6 +23,8 @@ For the blog page, I replaced the card grid with a file-browser style list. Post
 For the later folder control, I added a small button in the blog header. It reads all `.folder-group` details elements, opens or closes them in one pass, and updates its label between `Expand all` and `Collapse all` based on the current state.
 
 For folder animations, I kept the semantic `<details>` and `<summary>` structure but intercepted summary clicks in the blog page script. The script measures the folder content height, animates from `0px` to the measured height when opening, and reverses the transition before finally removing `open` when closing. A `prefers-reduced-motion` check disables the animation for users who request reduced motion.
+
+For the blog browser discovery pass, I chose three small features that fit the file-manager metaphor without adding dependencies. The first is a filter input that matches folder names, titles, descriptions, generated routes, and filenames, then opens matching folders while showing the visible file count. The second is persistent folder state through `localStorage`, so manual expand/collapse choices survive page reloads but gracefully fall back if storage is unavailable. The third is a latest-post action that identifies the newest `pubDate`, marks it with a badge, opens its folder, scrolls it into view, and briefly highlights the row.
 
 For the later content import, I added computer and Japanese notes as separate content folders under `src/content/blog`. The Astro content collection handled the new Markdown files without schema changes because each file included `title`, `description`, and `pubDate` frontmatter.
 
@@ -42,6 +45,8 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Generated output must be checked, not just config. Searching `dist` for `.katex-display` quickly revealed whether formulas were converted.
 - Native HTML elements such as `<details>` are enough for individual collapsible folder lists; a tiny script is only needed for coordinated actions like expanding or collapsing all folders.
 - Native `<details>` closes immediately, so smooth close animations require delaying removal of the `open` attribute until the transition finishes.
+- Lightweight discovery features should reuse server-rendered content data whenever possible. Adding `data-search-text`, `data-folder-id`, and `data-latest` kept the client script simple and avoided a second client-side data model.
+- Persisted UI state should be treated as optional. Wrapping `localStorage` reads and writes prevents privacy-mode or quota errors from breaking the blog list.
 
 ## Verification
 
@@ -52,3 +57,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The computer and Japanese note import was verified with `pnpm build`, producing 80 pages, and committed as `dabc965`.
 - The expand/collapse-all control was verified with `pnpm build` and committed as `cbb537e`.
 - The folder expansion animation was verified with `pnpm build` and committed as `615bc45`.
+- The blog browser discovery tools were verified with `pnpm build`; the generated `/blog/index.html` contains the filter input, latest-post marker, and folder state script. The feature commit is `9cc5e96`.
