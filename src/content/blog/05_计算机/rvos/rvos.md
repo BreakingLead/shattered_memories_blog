@@ -1,0 +1,11 @@
+---
+blog-publish: true
+title: "rvos"
+description: "jal ra, <addr jalr ra, 123(xn)"
+pubDate: 2026-06-23
+---
+
+`jal ra, <addr>`
+
+`jalr ra, 123(xn)`
+
