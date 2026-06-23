@@ -50,9 +50,17 @@ const postCount = posts.length;
 						their generated route, date, and short description.
 					</p>
 				</div>
-				<div class="browser-stats" aria-label="Blog library stats">
-					<span>{directoryCount} folders</span>
-					<span>{postCount} files</span>
+				<div class="browser-actions">
+					<div class="browser-stats" aria-label="Blog library stats">
+						<span>{directoryCount} folders</span>
+						<span>{postCount} files</span>
+					</div>
+					<button class="folder-action" type="button" data-folder-toggle aria-expanded="true">
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<path d="M4 6h16M4 12h16M4 18h16" />
+						</svg>
+						<span>Collapse all</span>
+					</button>
 				</div>
 			</header>
 
@@ -118,5 +126,31 @@ const postCount = posts.length;
 			</section>
 		</main>
 		<Footer />
+		<script>
+			const folderToggle = document.querySelector('[data-folder-toggle]');
+			const folderGroups = Array.from(document.querySelectorAll('.folder-group'));
+			const folderToggleLabel = folderToggle?.querySelector('span');
+
+			const updateFolderToggle = () => {
+				if (!folderToggle || !folderToggleLabel) return;
+				const hasClosedFolder = folderGroups.some((folder) => !folder.open);
+				folderToggle.setAttribute('aria-expanded', String(!hasClosedFolder));
+				folderToggleLabel.textContent = hasClosedFolder ? 'Expand all' : 'Collapse all';
+			};
+
+			folderToggle?.addEventListener('click', () => {
+				const shouldOpen = folderGroups.some((folder) => !folder.open);
+				for (const folder of folderGroups) {
+					folder.open = shouldOpen;
+				}
+				updateFolderToggle();
+			});
+
+			for (const folder of folderGroups) {
+				folder.addEventListener('toggle', updateFolderToggle);
+			}
+
+			updateFolderToggle();
+		</script>
 	</body>
 </html>
