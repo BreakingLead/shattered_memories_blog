@@ -2,6 +2,7 @@
 
 import mdx from '@astrojs/mdx';
 import { unified } from '@astrojs/markdown-remark';
+import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 import rehypeKatex from 'rehype-katex';
@@ -10,7 +11,7 @@ import remarkMath from 'remark-math';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
+	integrations: [mdx(), react(), sitemap()],
 	markdown: {
 		processor: unified({
 			smartypants: false,
