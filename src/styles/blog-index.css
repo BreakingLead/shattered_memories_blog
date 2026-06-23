@@ -57,6 +57,54 @@
 	font-size: 0.85rem;
 }
 
+.browser-controls {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.55rem;
+	justify-content: flex-end;
+}
+
+.blog-search {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	min-height: 2.35rem;
+	padding: 0.45rem 0.7rem;
+	border: 1px solid var(--border-strong);
+	border-radius: 8px;
+	background: var(--surface-raised);
+	color: var(--muted);
+}
+
+.blog-search:focus-within {
+	border-color: var(--accent);
+	color: var(--accent);
+}
+
+.blog-search svg {
+	width: 1rem;
+	height: 1rem;
+	fill: none;
+	stroke: currentColor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 1.8;
+}
+
+.blog-search input {
+	width: min(14rem, 36vw);
+	border: 0;
+	background: transparent;
+	color: var(--text);
+	font: inherit;
+	font-size: 0.88rem;
+	outline: none;
+}
+
+.blog-search input::placeholder {
+	color: var(--subtle);
+}
+
 .folder-action {
 	display: inline-flex;
 	align-items: center;
@@ -105,6 +153,12 @@
 
 .path-prompt {
 	color: var(--accent);
+}
+
+.path-result {
+	margin-left: auto;
+	color: var(--subtle);
+	font-size: 0.82rem;
 }
 
 .folder-list {
@@ -250,6 +304,13 @@
 	min-width: 0;
 }
 
+.file-title-row {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	min-width: 0;
+}
+
 .file-title {
 	overflow: hidden;
 	color: var(--text);
@@ -258,6 +319,18 @@
 	line-height: 1.35;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.latest-badge {
+	flex: 0 0 auto;
+	padding: 0.15rem 0.4rem;
+	border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+	border-radius: 999px;
+	color: var(--accent);
+	font-size: 0.68rem;
+	font-weight: 700;
+	line-height: 1.1;
+	text-transform: uppercase;
 }
 
 .file-description {
@@ -295,6 +368,19 @@
 	white-space: nowrap;
 }
 
+.file-row.is-focused .file-link {
+	background: color-mix(in srgb, var(--accent) 12%, var(--surface-muted));
+}
+
+.empty-state {
+	margin: 0;
+	padding: 1rem;
+	border: 1px dashed var(--border-strong);
+	border-radius: 8px;
+	color: var(--muted);
+	text-align: center;
+}
+
 @media (max-width: 760px) {
 	.blog-browser {
 		width: min(100% - 1rem, 1120px);
@@ -313,6 +399,24 @@
 	.browser-actions {
 		justify-items: start;
 		min-width: 0;
+	}
+
+	.browser-controls {
+		justify-content: flex-start;
+	}
+
+	.blog-search,
+	.blog-search input {
+		width: 100%;
+	}
+
+	.path-bar {
+		flex-wrap: wrap;
+	}
+
+	.path-result {
+		width: 100%;
+		margin-left: 0;
 	}
 
 	.file-link {
