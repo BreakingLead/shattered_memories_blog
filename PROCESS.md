@@ -8,6 +8,7 @@
 - `741a56b` - Update blog UI and math rendering. Split styles, added the note publishing script, copied published math notes, rebuilt the blog index as a collapsible folder list, and added KaTeX styling support.
 - `ec0e1c8` - Switch markdown math to remark rehype. Configured Astro's remark/rehype processor with `remark-math` and `rehype-katex`.
 - `dabc965` - Add computer and Japanese notes. Added 49 published Markdown notes under `src/content/blog/05_计算机` and `src/content/blog/06_日语`.
+- `cbb537e` - Add blog folder expand toggle. Added a blog-level control to expand or collapse every folder group in the file-browser list.
 
 ## Work Process
 
@@ -16,6 +17,8 @@ I first inspected the Astro project structure and kept the changes aligned with 
 For note publishing, I added `scripts/publish-notes.mjs` and `pnpm publish:notes`. The script scans `/mnt/ssdmain/note`, reads frontmatter, and copies only Markdown files with `blog-publish: true` into `src/content/blog` while preserving directory structure.
 
 For the blog page, I replaced the card grid with a file-browser style list. Posts are grouped by directory using their content IDs, and each group uses native `<details>` / `<summary>` so the folder list can collapse without client-side JavaScript.
+
+For the later folder control, I added a small button in the blog header. It reads all `.folder-group` details elements, opens or closes them in one pass, and updates its label between `Expand all` and `Collapse all` based on the current state.
 
 For the later content import, I added computer and Japanese notes as separate content folders under `src/content/blog`. The Astro content collection handled the new Markdown files without schema changes because each file included `title`, `description`, and `pubDate` frontmatter.
 
@@ -34,7 +37,7 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The remark/rehype route is simpler for this project because `remark-math` and `rehype-katex` are established plugins with fewer local moving parts.
 - Astro scoped styles do not automatically match Markdown slot content. Use `:global(...)` or global CSS for generated Markdown/KaTeX selectors.
 - Generated output must be checked, not just config. Searching `dist` for `.katex-display` quickly revealed whether formulas were converted.
-- Native HTML elements such as `<details>` are enough for simple collapsible folder lists and avoid unnecessary JavaScript.
+- Native HTML elements such as `<details>` are enough for individual collapsible folder lists; a tiny script is only needed for coordinated actions like expanding or collapsing all folders.
 
 ## Verification
 
@@ -43,3 +46,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Work was committed as `741a56b`.
 - The remark/rehype switch was verified with `pnpm build` and committed as `ec0e1c8`.
 - The computer and Japanese note import was verified with `pnpm build`, producing 80 pages, and committed as `dabc965`.
+- The expand/collapse-all control was verified with `pnpm build` and committed as `cbb537e`.
