@@ -31,6 +31,8 @@ For the React migration, I followed Astro's official integration pattern: instal
 
 For the later content import, I added computer and Japanese notes as separate content folders under `src/content/blog`. The Astro content collection handled the new Markdown files without schema changes because each file included `title`, `description`, and `pubDate` frontmatter.
 
+For the Zhihu article import, I used the installed `zhihu-fetcher` skill as the workflow reference. The public profile API exposed the account metadata, but the article-list endpoint required an authenticated browser session. I copied the local Firefox cookie database to `/tmp`, extracted only Zhihu cookie records into `/tmp/zhihu-workspace/zhihu_cookies.json`, and used that temporary cookie file for requests without printing or committing cookie values. The import script fetched `ggmyfriendxd`'s 18 article records, called each `zhuanlan.zhihu.com/api/articles/{id}` endpoint, converted article HTML to Markdown, and wrote the results under `src/content/blog/zhihu/`. A separate `data/zhihu/ggmyfriendxd.articles.json` manifest records source URLs, generated files, and article IDs for future refreshes.
+
 ## Theme Principle
 
 The light/dark mode works through CSS custom properties. `theme.css` defines semantic tokens such as `--bg`, `--text`, `--surface`, `--border`, and `--accent`. A small inline script in `BaseHead.astro` reads `localStorage.theme`, falls back to `prefers-color-scheme`, and sets `document.documentElement.dataset.theme`. Components then use the same semantic variables, so switching theme only changes token values rather than duplicating component styles.
@@ -52,6 +54,9 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Persisted UI state should be treated as optional. Wrapping `localStorage` reads and writes prevents privacy-mode or quota errors from breaking the blog list.
 - In Astro, React is useful when several controls share state. The blog browser had filtering, expand-all, per-folder state, persistence, and latest-post focus, so moving it to a React island made the state model clearer than coordinating many DOM queries.
 - Props passed into hydrated islands should be plain serializable data. The Astro page converts content entries into strings, booleans, and arrays before passing them to React.
+- Browser cookies should be treated as runtime credentials. Keep extracted cookies in `/tmp` or another ignored workspace, never print their values, and never store them beside imported content.
+- Imported third-party HTML needs normalization before it enters the Astro content collection. Every generated Markdown file must include the required `title` and `pubDate` fields so `pnpm build` catches bad imports immediately.
+- Zhihu equation images can preserve visual formulas even when the source is not native Markdown math. This is acceptable for a first import, but future cleanup could decode equation URLs into LaTeX where useful.
 
 ## Verification
 
@@ -64,3 +69,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The folder expansion animation was verified with `pnpm build` and committed as `615bc45`.
 - The blog browser discovery tools were verified with `pnpm build`; the generated `/blog/index.html` contains the filter input, latest-post marker, and folder state script. The feature commit is `9cc5e96`.
 - The React migration was verified with `pnpm build`; `/blog/index.html` contains an `astro-island` for `BlogFolderBrowser`, and searches confirmed the old blog folder DOM-query script was removed. The migration commit is `1353f98`.
+- The Zhihu article import was verified with `pnpm build`, which generated 98 pages including 18 `/blog/zhihu/...` routes. The import commit is pending until this work is committed.

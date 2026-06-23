@@ -1,0 +1,98 @@
+{
+  "fetched_at": "2026-06-23T15:36:37.892145+00:00",
+  "source_profile_url": "https://www.zhihu.com/people/ggmyfriendxd",
+  "source_api_url": "https://www.zhihu.com/api/v4/members/ggmyfriendxd?include=allow_message%2Canswer_count%2Carticles_count%2Cavatar_url%2Cavatar_url_template%2Cbadge%2Cbusiness%2Ccolumns_count%2Ccommercial_question_count%2Cdescription%2Ceducations%2Cemployments%2Cfavorited_count%2Cfollower_count%2Cfollowing_columns_count%2Cfollowing_count%2Cfollowing_favlists_count%2Cfollowing_question_count%2Cfollowing_topic_count%2Cgender%2Cheadline%2Chosted_live_count%2Cid%2Cis_advertiser%2Cis_followed%2Cis_following%2Cis_org%2Cis_privacy_protected%2Clocations%2Cmarked_answers_count%2Cmutual_followees_count%2Cname%2Cparticipated_live_count%2Cpins_count%2Cquestion_count%2Cthank_from_count%2Cthank_to_count%2Cthanked_count%2Ctype%2Curl%2Curl_token%2Cuser_type%2Cvote_from_count%2Cvote_to_count%2Cvoteup_count",
+  "profile": {
+    "id": "81ac0c5ebd4e177363e23942bf2a6bfa",
+    "url_token": "ggmyfriendxd",
+    "name": "千秋 Lead",
+    "use_default_avatar": false,
+    "avatar_url": "https://picx.zhimg.com/v2-becddd6c44493fa2fdec109ccabd3e75_xl.jpg?source=32738c0c&needBackground=1",
+    "avatar_url_template": "https://picx.zhimg.com/v2-becddd6c44493fa2fdec109ccabd3e75_l.jpg?source=32738c0c&needBackground=1",
+    "is_org": false,
+    "type": "people",
+    "url": "https://www.zhihu.com/api/v4/people/ggmyfriendxd",
+    "user_type": "people",
+    "headline": "高中数学/数学/物理/CS/FP交流群 613637913",
+    "headline_render": "高中数学/数学/物理/CS/FP交流群 613637913",
+    "description": "欢迎你和我交朋友哦。<br/>本人所有回答放弃所有权利，随意转载，可以商用。",
+    "gender": -1,
+    "is_advertiser": false,
+    "ip_info": "IP 属地陕西",
+    "vip_info": {
+      "is_vip": false,
+      "vip_type": 0,
+      "rename_days": "0",
+      "entrance_v2": null,
+      "rename_frequency": 0,
+      "rename_await_days": 0
+    },
+    "kvip_info": {
+      "is_vip": false
+    },
+    "badge": [],
+    "badge_v2": {
+      "title": "",
+      "merged_badges": [],
+      "detail_badges": [],
+      "icon": "",
+      "night_icon": ""
+    },
+    "allow_message": true,
+    "is_following": false,
+    "is_followed": false,
+    "follower_count": 1152,
+    "following_count": 331,
+    "mutual_followees_count": 0,
+    "answer_count": 563,
+    "question_count": 317,
+    "commercial_question_count": 0,
+    "articles_count": 18,
+    "project_count": 0,
+    "columns_count": 1,
+    "favorited_count": 9050,
+    "pins_count": 51,
+    "voteup_count": 17611,
+    "thanked_count": 14517,
+    "hosted_live_count": 0,
+    "participated_live_count": 0,
+    "marked_answers_count": 0,
+    "following_columns_count": 17,
+    "following_topic_count": 25,
+    "following_question_count": 1013,
+    "following_favlists_count": 7,
+    "vote_to_count": 0,
+    "vote_from_count": 0,
+    "thank_to_count": 0,
+    "thank_from_count": 0,
+    "available_medals_count": 0,
+    "business": {
+      "id": "",
+      "type": "topic",
+      "url": "",
+      "name": "",
+      "avatar_url": ""
+    },
+    "locations": [],
+    "employments": [],
+    "educations": [
+      {
+        "school": {
+          "id": "20086418",
+          "type": "topic",
+          "url": "https://www.zhihu.com/api/v4/topics/20086418",
+          "name": "西北工业大学附属中学",
+          "avatar_url": "https://picx.zhimg.com/v2-b8a489dc512bebef763cffa59176f45b_l.jpg?source=32738c0c"
+        },
+        "entrance_year": 2023
+      }
+    ],
+    "is_privacy_protected": false,
+    "org_verify_status": null,
+    "is_realname": true,
+    "has_applying_column": false,
+    "is_new_rename": false,
+    "has_agent_content": false,
+    "ai_assistant_info": null
+  }
+}
