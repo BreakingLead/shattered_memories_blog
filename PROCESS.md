@@ -34,6 +34,8 @@ For the later content import, I added computer and Japanese notes as separate co
 
 For the Zhihu article import, I used the installed `zhihu-fetcher` skill as the workflow reference. The public profile API exposed the account metadata, but the article-list endpoint required an authenticated browser session. I copied the local Firefox cookie database to `/tmp`, extracted only Zhihu cookie records into `/tmp/zhihu-workspace/zhihu_cookies.json`, and used that temporary cookie file for requests without printing or committing cookie values. The import script fetched `ggmyfriendxd`'s 18 article records, called each `zhuanlan.zhihu.com/api/articles/{id}` endpoint, converted article HTML to Markdown, and wrote the results under `src/content/blog/zhihu/`. A separate `data/zhihu/ggmyfriendxd.articles.json` manifest records source URLs, generated files, and article IDs for future refreshes.
 
+For the Vite dev fix, I reproduced the issue by starting `pnpm dev` and requesting the React island module directly. The page HTML rendered with status 200, but `/src/components/BlogFolderBrowser.tsx` and the Astro React renderer returned 500 from Vite with `Missing field moduleType` in `builtin:vite-react-refresh-wrapper`. The lockfile showed Astro using Vite 7.3.5 while `@astrojs/react` brought `@vitejs/plugin-react` through Vite 8.0.16, so the failure was in the dev-only React refresh path rather than the blog content. I removed the React island, deleted the React integration and dependencies, and moved the blog browser back to server-rendered Astro markup plus a small page script for filtering, expand/collapse state, and latest-post focus.
+
 ## Theme Principle
 
 The light/dark mode works through CSS custom properties. `theme.css` defines semantic tokens such as `--bg`, `--text`, `--surface`, `--border`, and `--accent`. A small inline script in `BaseHead.astro` reads `localStorage.theme`, falls back to `prefers-color-scheme`, and sets `document.documentElement.dataset.theme`. Components then use the same semantic variables, so switching theme only changes token values rather than duplicating component styles.
@@ -58,6 +60,8 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Browser cookies should be treated as runtime credentials. Keep extracted cookies in `/tmp` or another ignored workspace, never print their values, and never store them beside imported content.
 - Imported third-party HTML needs normalization before it enters the Astro content collection. Every generated Markdown file must include the required `title` and `pubDate` fields so `pnpm build` catches bad imports immediately.
 - Zhihu equation images can preserve visual formulas even when the source is not native Markdown math. This is acceptable for a first import, but future cleanup could decode equation URLs into LaTeX where useful.
+- A dependency can pass production build while still breaking dev HMR. When Vite reports a client-only transform failure, request the exact module URL from the dev server before changing content or routes.
+- React is not worth keeping for a small isolated widget when it pulls in a fragile dev transform path. The folder browser is simple enough as Astro HTML plus scoped browser script.
 
 ## Verification
 
@@ -71,3 +75,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The blog browser discovery tools were verified with `pnpm build`; the generated `/blog/index.html` contains the filter input, latest-post marker, and folder state script. The feature commit is `9cc5e96`.
 - The React migration was verified with `pnpm build`; `/blog/index.html` contains an `astro-island` for `BlogFolderBrowser`, and searches confirmed the old blog folder DOM-query script was removed. The migration commit is `1353f98`.
 - The Zhihu article import was verified with `pnpm build`, which generated 98 pages including 18 `/blog/zhihu/...` routes. The import commit is `1e1d609`.
+- The Vite dev fix was verified with `pnpm build` and `pnpm dev`; `/blog/` and a `/blog/zhihu/...` article returned 200 in dev, and the generated blog page no longer references `astro-island`, `@astrojs/react`, or React refresh modules. The fix commit is pending until this work is committed.
