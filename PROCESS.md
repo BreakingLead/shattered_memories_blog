@@ -5,8 +5,8 @@
 - `415050d` - Initial commit from Astro. Created the base Astro blog scaffold, content collection, starter pages, RSS, assets, and global styling.
 - `541adc5` - Build terminal resume homepage. Added `AGENTS.md`, rebuilt the homepage as a terminal-style resume, introduced dark/light theme behavior, and revised header/footer styling.
 - `4463775` - add pnpm-workspace.yaml. Adjusted the workspace configuration.
-- `741a56b` - Update blog UI and math rendering. Split styles, added the note publishing script, copied published math notes, rebuilt the blog index as a collapsible folder list, and fixed Markdown math rendering with Sätteri plus KaTeX.
-- `ec0e1c8` - Switch markdown math to remark rehype. Replaced the Sätteri Markdown processor with Astro's remark/rehype processor and removed the local Sätteri KaTeX bridge.
+- `741a56b` - Update blog UI and math rendering. Split styles, added the note publishing script, copied published math notes, rebuilt the blog index as a collapsible folder list, and added KaTeX styling support.
+- `ec0e1c8` - Switch markdown math to remark rehype. Configured Astro's remark/rehype processor with `remark-math` and `rehype-katex`.
 
 ## Work Process
 
@@ -22,25 +22,20 @@ The light/dark mode works through CSS custom properties. `theme.css` defines sem
 
 ## Math Rendering Principle
 
-Astro's default Markdown path did not render LaTeX. The first implementation used `@astrojs/markdown-satteri` with `features.math`, then converted Sätteri's math code nodes to KaTeX in a local HAST plugin. That worked, but it required a custom bridge and more manual edge-case handling.
+Astro's default Markdown path did not render LaTeX. The current implementation uses Astro's remark/rehype pipeline through `unified()` from `@astrojs/markdown-remark`. `remark-math` parses inline and display math into Markdown AST nodes, and `rehype-katex` renders those nodes to KaTeX HTML. `BaseHead.astro` imports `katex/dist/katex.min.css` so the generated markup has the required fonts and layout.
 
-The current implementation uses Astro's remark/rehype pipeline through `unified()` from `@astrojs/markdown-remark`. `remark-math` parses inline and display math into Markdown AST nodes, and `rehype-katex` renders those nodes to KaTeX HTML. `BaseHead.astro` still imports `katex/dist/katex.min.css` so the generated KaTeX markup has the required fonts and layout.
-
-The important fix was to prefer the standard plugin chain over a project-local renderer. It removes `src/lib/satteri-katex.mjs`, keeps inline formulas in valid paragraph structure, and makes the math path easier for future contributors to recognize.
+The important fix was to prefer the standard plugin chain over a project-local renderer. It keeps inline formulas in valid paragraph structure and makes the math path easier for future contributors to recognize.
 
 ## Lessons Learned
 
-- Sätteri supports math parsing, but it does not render math by itself; a renderer such as KaTeX is still required.
 - The remark/rehype route is simpler for this project because `remark-math` and `rehype-katex` are established plugins with fewer local moving parts.
 - Astro scoped styles do not automatically match Markdown slot content. Use `:global(...)` or global CSS for generated Markdown/KaTeX selectors.
-- Smart punctuation can corrupt TeX-like syntax. `smartPunctuation: false` is safer for math-heavy Markdown.
-- Generated output must be checked, not just config. Searching `dist` for `language-math`, `.katex-display`, and malformed annotations quickly revealed whether formulas were converted.
+- Generated output must be checked, not just config. Searching `dist` for `.katex-display` quickly revealed whether formulas were converted.
 - Native HTML elements such as `<details>` are enough for simple collapsible folder lists and avoid unnecessary JavaScript.
 
 ## Verification
 
 - `pnpm build` passed after the final changes.
 - `dist` contains `.katex` / `.katex-display` output for math posts.
-- No `language-math`, `math-inline`, or `math-display` nodes remain in built blog HTML.
 - Work was committed as `741a56b`.
 - The remark/rehype switch was verified with `pnpm build` and committed as `ec0e1c8`.
