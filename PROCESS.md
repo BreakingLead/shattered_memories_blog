@@ -12,6 +12,7 @@
 - `615bc45` - Animate blog folder expansion. Added height, opacity, and vertical-offset transitions for folder content when opening or closing groups.
 - `9cc5e96` - Add blog browser discovery tools. Added quick filtering, persistent folder expansion state, and a latest-post jump action to the blog file browser.
 - `1353f98` - Migrate blog browser to React island. Added Astro's React integration and moved the interactive blog folder browser from inline page script into `BlogFolderBrowser.tsx`.
+- `1e1d609` - Import Zhihu articles. Imported 18 Zhihu posts into `src/content/blog/zhihu/` and saved public profile/article manifests under `data/zhihu/`.
 
 ## Work Process
 
@@ -69,4 +70,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The folder expansion animation was verified with `pnpm build` and committed as `615bc45`.
 - The blog browser discovery tools were verified with `pnpm build`; the generated `/blog/index.html` contains the filter input, latest-post marker, and folder state script. The feature commit is `9cc5e96`.
 - The React migration was verified with `pnpm build`; `/blog/index.html` contains an `astro-island` for `BlogFolderBrowser`, and searches confirmed the old blog folder DOM-query script was removed. The migration commit is `1353f98`.
-- The Zhihu article import was verified with `pnpm build`, which generated 98 pages including 18 `/blog/zhihu/...` routes. The import commit is pending until this work is committed.
+- The Zhihu article import was verified with `pnpm build`, which generated 98 pages including 18 `/blog/zhihu/...` routes. The import commit is `1e1d609`.
