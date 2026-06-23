@@ -11,7 +11,7 @@
 - `cbb537e` - Add blog folder expand toggle. Added a blog-level control to expand or collapse every folder group in the file-browser list.
 - `615bc45` - Animate blog folder expansion. Added height, opacity, and vertical-offset transitions for folder content when opening or closing groups.
 - `9cc5e96` - Add blog browser discovery tools. Added quick filtering, persistent folder expansion state, and a latest-post jump action to the blog file browser.
-- `50e8be7` - Migrate blog browser to React island. Added Astro's React integration and moved the interactive blog folder browser from inline page script into `BlogFolderBrowser.tsx`.
+- `1353f98` - Migrate blog browser to React island. Added Astro's React integration and moved the interactive blog folder browser from inline page script into `BlogFolderBrowser.tsx`.
 
 ## Work Process
 
@@ -63,4 +63,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The expand/collapse-all control was verified with `pnpm build` and committed as `cbb537e`.
 - The folder expansion animation was verified with `pnpm build` and committed as `615bc45`.
 - The blog browser discovery tools were verified with `pnpm build`; the generated `/blog/index.html` contains the filter input, latest-post marker, and folder state script. The feature commit is `9cc5e96`.
-- The React migration was verified with `pnpm build`; `/blog/index.html` contains an `astro-island` for `BlogFolderBrowser`, and searches confirmed the old blog folder DOM-query script was removed. The migration commit is `50e8be7`.
+- The React migration was verified with `pnpm build`; `/blog/index.html` contains an `astro-island` for `BlogFolderBrowser`, and searches confirmed the old blog folder DOM-query script was removed. The migration commit is `1353f98`.
