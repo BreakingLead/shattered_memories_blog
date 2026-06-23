@@ -9,13 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "publish:notes": "node scripts/publish-notes.mjs",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "^0.3.1",
     "@astrojs/mdx": "^6.0.3",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^6.4.7",
+    "katex": "^0.17.0",
     "sharp": "^0.34.3"
   }
 }

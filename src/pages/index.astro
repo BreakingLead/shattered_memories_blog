@@ -1,134 +1,176 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import "../styles/home.css";
 
 const profile = {
-	name: 'Ira / BreakingLead',
-	role: 'Independent Developer',
-	location: 'Shanghai / Remote',
-	email: 'breakingleadqwq@gmail.com',
-	github: 'github.com/BreakingLead',
+    name: "千秋",
+    role: "Independent Developer",
+    location: "Shanghai / Remote",
+    email: "breakingleadqwq@gmail.com",
+    github: "github.com/BreakingLead",
 };
 
-const skills = ['Rust', 'WebGPU', 'Lean4', 'TypeScript', 'Haskell', 'Python', 'Compiler', 'Formal Verification'];
+const skills = [
+    "Rust",
+    "WebGPU",
+    "Lean4",
+    "TypeScript",
+    "Haskell",
+    "Python",
+    "Compiler",
+    "Formal Verification",
+];
 const projects = [
-	{
-		name: 'Blockworld',
-		summary: 'A voxel game engine built with Rust, WebGPU, rasterization, and ECS architecture.',
-		link: 'https://github.com/BreakingLead/blockworld',
-	},
-	{
-		name: 'Moonbite',
-		summary: 'A Moonbit compiler and interpreter experiment exploring Hindley-Milner typing and code generation.',
-		link: 'https://github.com/BreakingLead/moonbite',
-	},
+    {
+        name: "Blockworld",
+        summary:
+            "A voxel game engine built with Rust, WebGPU, rasterization, and ECS architecture.",
+        link: "https://github.com/BreakingLead/blockworld",
+    },
+    {
+        name: "Moonbite",
+        summary:
+            "A Moonbit compiler and interpreter experiment exploring Hindley-Milner typing and code generation.",
+        link: "https://github.com/BreakingLead/moonbite",
+    },
 ];
 
 const experience = [
-	'Formalized and verified IMO-style math problems with Lean.',
-	'Delivered Python automation, OpenCV, pandas, and data-processing tools as a freelance developer.',
-	'Maintained 55+ open source repositories with 100+ GitHub stars.',
+    "Formalized and verified IMO-style math problems with Lean.",
+    "Delivered Python automation, OpenCV, pandas, and data-processing tools as a freelance developer.",
+    "Maintained 55+ open source repositories with 100+ GitHub stars.",
 ];
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main class="resume-shell">
-			<section class="terminal-card" aria-labelledby="resume-title">
-				<div class="terminal-topbar" aria-hidden="true">
-					<span></span>
-					<span></span>
-					<span></span>
-					<p>resume.sh</p>
-				</div>
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    </head>
+    <body>
+        <Header />
+        <main class="resume-shell">
+            <section class="terminal-card" aria-labelledby="resume-title">
+                <div class="terminal-topbar" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <p>resume.sh</p>
+                </div>
 
-				<div class="terminal-grid">
-					<div class="terminal-main">
-						<p class="prompt"><span>$</span> whoami</p>
-						<h1 id="resume-title">{profile.name}</h1>
-						<p class="role">{profile.role}</p>
-						<p class="summary">
-							I build systems where theory has to touch real code: functional programming,
-							formal verification, compiler experiments, graphics engines, and practical automation.
-							Currently looking for open source or development roles in Shanghai.
-						</p>
+                <div class="terminal-grid">
+                    <div class="terminal-main">
+                        <p class="prompt"><span>$</span> whoami</p>
+                        <h1 id="resume-title">{profile.name}</h1>
+                        <p class="role">{profile.role}</p>
+                        <p class="summary">
+                            I build systems where theory has to touch real code:
+                            functional programming, formal verification,
+                            compiler experiments, graphics engines, and
+                            practical automation. Currently looking for open
+                            source or development roles in Shanghai.
+                        </p>
 
-						<div class="terminal-block">
-							<p class="prompt"><span>$</span> cat contact.json</p>
-							<dl class="contact-list">
-								<div>
-									<dt>location</dt>
-									<dd>{profile.location}</dd>
-								</div>
-								<div>
-									<dt>email</dt>
-									<dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd>
-								</div>
-								<div>
-									<dt>github</dt>
-									<dd><a href="https://github.com/BreakingLead">{profile.github}</a></dd>
-								</div>
-								<div>
-									<dt>writing</dt>
-									<dd><a href="/blog/">/blog</a></dd>
-								</div>
-							</dl>
-						</div>
+                        <div class="terminal-block">
+                            <p class="prompt">
+                                <span>$</span> cat contact.json
+                            </p>
+                            <dl class="contact-list">
+                                <div>
+                                    <dt>location</dt>
+                                    <dd>{profile.location}</dd>
+                                </div>
+                                <div>
+                                    <dt>email</dt>
+                                    <dd>
+                                        <a href={`mailto:${profile.email}`}
+                                            >{profile.email}</a
+                                        >
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt>github</dt>
+                                    <dd>
+                                        <a
+                                            href="https://github.com/BreakingLead"
+                                            >{profile.github}</a
+                                        >
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt>writing</dt>
+                                    <dd><a href="/blog/">/blog</a></dd>
+                                </div>
+                            </dl>
+                        </div>
 
-						<div class="terminal-block">
-							<p class="prompt"><span>$</span> ls ./focus</p>
-							<ul class="focus-list">
-								<li>Functional programming, type systems, and dependent types</li>
-								<li>Formal verification with Lean and proof-oriented engineering</li>
-								<li>Low-level graphics, WebGPU, WebAssembly, and engine architecture</li>
-							</ul>
-						</div>
-					</div>
+                        <div class="terminal-block">
+                            <p class="prompt"><span>$</span> ls ./focus</p>
+                            <ul class="focus-list">
+                                <li>
+                                    Functional programming, type systems, and
+                                    dependent types
+                                </li>
+                                <li>
+                                    Formal verification with Lean and
+                                    proof-oriented engineering
+                                </li>
+                                <li>
+                                    Low-level graphics, WebGPU, WebAssembly, and
+                                    engine architecture
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
-					<aside class="terminal-side" aria-label="Resume quick facts">
-						<div class="status-card">
-							<p class="label">status</p>
-							<strong>Open to open source, formal methods, graphics, and developer tooling work.</strong>
-						</div>
+                    <aside
+                        class="terminal-side"
+                        aria-label="Resume quick facts"
+                    >
+                        <div class="status-card">
+                            <p class="label">status</p>
+                            <strong
+                                >Open to open source, formal methods, graphics,
+                                and developer tooling work.</strong
+                            >
+                        </div>
 
-						<div class="info-panel">
-							<p class="prompt"><span>$</span> skills --top</p>
-							<div class="skill-tags">
-								{skills.map((skill) => <span>{skill}</span>)}
-							</div>
-						</div>
+                        <div class="info-panel">
+                            <p class="prompt"><span>$</span> skills --top</p>
+                            <div class="skill-tags">
+                                {skills.map((skill) => <span>{skill}</span>)}
+                            </div>
+                        </div>
 
-						<div class="info-panel">
-							<p class="prompt"><span>$</span> history --work</p>
-							<ul class="focus-list compact">
-								{experience.map((item) => <li>{item}</li>)}
-							</ul>
-						</div>
+                        <div class="info-panel">
+                            <p class="prompt"><span>$</span> history --work</p>
+                            <ul class="focus-list compact">
+                                {experience.map((item) => <li>{item}</li>)}
+                            </ul>
+                        </div>
 
-						<div class="info-panel">
-							<p class="prompt"><span>$</span> open projects</p>
-							<ul class="project-list">
-								{
-									projects.map((project) => (
-										<li>
-											<a href={project.link}><strong>{project.name}</strong></a>
-											<p>{project.summary}</p>
-										</li>
-									))
-								}
-							</ul>
-						</div>
-					</aside>
-				</div>
-			</section>
-		</main>
-		<Footer />
-	</body>
+                        <div class="info-panel">
+                            <p class="prompt"><span>$</span> open projects</p>
+                            <ul class="project-list">
+                                {
+                                    projects.map((project) => (
+                                        <li>
+                                            <a href={project.link}>
+                                                <strong>{project.name}</strong>
+                                            </a>
+                                            <p>{project.summary}</p>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </body>
 </html>

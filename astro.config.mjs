@@ -1,13 +1,24 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
+import { satteri } from '@astrojs/markdown-satteri';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { satteriKatexPlugin } from './src/lib/satteri-katex.mjs';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://example.com',
 	integrations: [mdx(), sitemap()],
+	markdown: {
+		processor: satteri({
+			features: {
+				math: true,
+				smartPunctuation: false,
+			},
+			hastPlugins: [satteriKatexPlugin],
+		}),
+	},
 	fonts: [
 		{
 			provider: fontProviders.local(),
