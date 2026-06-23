@@ -34,6 +34,12 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <Font cssVariable="--font-atkinson" preload />
 
+<script is:inline>
+	const storedTheme = localStorage.getItem('theme');
+	const preferredTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+	document.documentElement.dataset.theme = storedTheme || preferredTheme;
+</script>
+
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
