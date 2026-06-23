@@ -207,7 +207,13 @@
 	display: grid;
 	margin: 0;
 	padding: 0;
+	overflow: hidden;
 	list-style: none;
+	transition:
+		height 220ms ease,
+		opacity 180ms ease,
+		transform 220ms ease;
+	will-change: height, opacity, transform;
 }
 
 .file-row + .file-row {
@@ -321,5 +327,12 @@
 
 	.file-name {
 		max-width: 100%;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.file-list,
+	.folder-toggle {
+		transition: none;
 	}
 }

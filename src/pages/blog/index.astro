@@ -1,32 +1,35 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
-import '../../styles/blog-index.css';
+import { getCollection } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import "../../styles/blog-index.css";
 
-const posts = (await getCollection('blog')).sort((a, b) => a.id.localeCompare(b.id, 'zh-Hans-CN'));
+const posts = (await getCollection("blog")).sort((a, b) =>
+    a.id.localeCompare(b.id, "zh-Hans-CN"),
+);
 
 const directories = new Map<string, typeof posts>();
 
 for (const post of posts) {
-	const segments = post.id.split('/');
-	const directory = segments.length > 1 ? segments.slice(0, -1).join('/') : '/';
-	const group = directories.get(directory) ?? [];
-	group.push(post);
-	directories.set(directory, group);
+    const segments = post.id.split("/");
+    const directory =
+        segments.length > 1 ? segments.slice(0, -1).join("/") : "/";
+    const group = directories.get(directory) ?? [];
+    group.push(post);
+    directories.set(directory, group);
 }
 
 const directoryGroups = [...directories.entries()].sort(([a], [b]) => {
-	if (a === '/') {
-		return -1;
-	}
-	if (b === '/') {
-		return 1;
-	}
-	return a.localeCompare(b, 'zh-Hans-CN');
+    if (a === "/") {
+        return -1;
+    }
+    if (b === "/") {
+        return 1;
+    }
+    return a.localeCompare(b, "zh-Hans-CN");
 });
 
 const directoryCount = directoryGroups.length;
@@ -35,122 +38,273 @@ const postCount = posts.length;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={`Blog | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main class="blog-browser">
-			<header class="browser-header">
-				<div>
-					<p class="browser-kicker">/src/content/blog</p>
-					<h1>Blog Files</h1>
-					<p class="browser-summary">
-						Browse notes as a folder tree. Published Markdown and MDX entries are listed with
-						their generated route, date, and short description.
-					</p>
-				</div>
-				<div class="browser-actions">
-					<div class="browser-stats" aria-label="Blog library stats">
-						<span>{directoryCount} folders</span>
-						<span>{postCount} files</span>
-					</div>
-					<button class="folder-action" type="button" data-folder-toggle aria-expanded="true">
-						<svg viewBox="0 0 24 24" aria-hidden="true">
-							<path d="M4 6h16M4 12h16M4 18h16" />
-						</svg>
-						<span>Collapse all</span>
-					</button>
-				</div>
-			</header>
+    <head>
+        <BaseHead
+            title={`Blog | ${SITE_TITLE}`}
+            description={SITE_DESCRIPTION}
+        />
+    </head>
+    <body>
+        <Header />
+        <main class="blog-browser">
+            <header class="browser-header">
+                <div>
+                    <p class="browser-kicker">/src/content/blog</p>
+                    <h1>Blog Files</h1>
+                    <p class="browser-summary">
+                        Browse notes as a folder tree. Published Markdown and
+                        MDX entries are listed with their generated route, date,
+                        and short description.
+                    </p>
+                </div>
+                <div class="browser-actions">
+                    <div class="browser-stats" aria-label="Blog library stats">
+                        <span>{directoryCount} folders</span>
+                        <span>{postCount} files</span>
+                    </div>
+                    <button
+                        class="folder-action"
+                        type="button"
+                        data-folder-toggle
+                        aria-expanded="true"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <span>Collapse all</span>
+                    </button>
+                </div>
+            </header>
 
-			<section class="path-bar" aria-label="Current path">
-				<span class="path-prompt">$</span>
-				<span>ls -la ./blog</span>
-			</section>
+            <section class="path-bar" aria-label="Current path">
+                <span class="path-prompt">$</span>
+                <span>ls -la ./blog</span>
+            </section>
 
-			<section class="folder-list" aria-label="Blog posts by folder">
-				{
-					directoryGroups.map(([directory, directoryPosts]) => (
-						<details class="folder-group" open>
-							<summary class="folder-heading" id={`folder-${directory.replaceAll('/', '-')}`}>
-								<span class="folder-toggle" aria-hidden="true">
-									<svg viewBox="0 0 24 24">
-										<path d="m9 6 6 6-6 6" />
-									</svg>
-								</span>
-								<span class="folder-icon" aria-hidden="true">
-									<svg viewBox="0 0 24 24">
-										<path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H10l2 2h6.5A2.5 2.5 0 0 1 21 9.5v7A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z" />
-									</svg>
-								</span>
-								<div>
-									<h2>{directory}</h2>
-									<p>{directoryPosts.length} file{directoryPosts.length === 1 ? '' : 's'}</p>
-								</div>
-							</summary>
+            <section class="folder-list" aria-label="Blog posts by folder">
+                {
+                    directoryGroups.map(([directory, directoryPosts]) => (
+                        <details class="folder-group" open>
+                            <summary
+                                class="folder-heading"
+                                id={`folder-${directory.replaceAll("/", "-")}`}
+                            >
+                                <span class="folder-toggle" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="m9 6 6 6-6 6" />
+                                    </svg>
+                                </span>
+                                <span class="folder-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H10l2 2h6.5A2.5 2.5 0 0 1 21 9.5v7A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z" />
+                                    </svg>
+                                </span>
+                                <div>
+                                    <h2>{directory}</h2>
+                                    <p>
+                                        {directoryPosts.length} file
+                                        {directoryPosts.length === 1 ? "" : "s"}
+                                    </p>
+                                </div>
+                            </summary>
 
-							<ul class="file-list">
-								{directoryPosts.map((post) => {
-									const filename = `${post.id.split('/').at(-1)}.${post.filePath?.split('.').at(-1) ?? 'md'}`;
+                            <ul class="file-list" data-folder-content>
+                                {directoryPosts.map((post) => {
+                                    const filename = `${post.id.split("/").at(-1)}.${post.filePath?.split(".").at(-1) ?? "md"}`;
 
-									return (
-										<li class="file-row">
-											<a href={`/blog/${post.id}/`} class="file-link">
-												<span class="file-icon" aria-hidden="true">
-													<svg viewBox="0 0 24 24">
-														<path d="M6 3.5h8l4 4v13H6v-17Z" />
-														<path d="M14 3.5v4h4" />
-														<path d="M9 12h6M9 15h6M9 18h4" />
-													</svg>
-												</span>
-												<span class="file-main">
-													<span class="file-title">{post.data.title}</span>
-													<span class="file-description">{post.data.description}</span>
-													<span class="file-path">/blog/{post.id}</span>
-												</span>
-												<span class="file-meta">
-													<span class="file-name">{filename}</span>
-													<span>
-														<FormattedDate date={post.data.pubDate} />
-													</span>
-												</span>
-											</a>
-										</li>
-									);
-								})}
-							</ul>
-						</details>
-					))
-				}
-			</section>
-		</main>
-		<Footer />
-		<script>
-			const folderToggle = document.querySelector('[data-folder-toggle]');
-			const folderGroups = Array.from(document.querySelectorAll('.folder-group'));
-			const folderToggleLabel = folderToggle?.querySelector('span');
+                                    return (
+                                        <li class="file-row">
+                                            <a
+                                                href={`/blog/${post.id}/`}
+                                                class="file-link"
+                                            >
+                                                <span
+                                                    class="file-icon"
+                                                    aria-hidden="true"
+                                                >
+                                                    <svg viewBox="0 0 24 24">
+                                                        <path d="M6 3.5h8l4 4v13H6v-17Z" />
+                                                        <path d="M14 3.5v4h4" />
+                                                        <path d="M9 12h6M9 15h6M9 18h4" />
+                                                    </svg>
+                                                </span>
+                                                <span class="file-main">
+                                                    <span class="file-title">
+                                                        {post.data.title}
+                                                    </span>
+                                                    <span class="file-description">
+                                                        {post.data.description}
+                                                    </span>
+                                                    <span class="file-path">
+                                                        /blog/{post.id}
+                                                    </span>
+                                                </span>
+                                                <span class="file-meta">
+                                                    <span class="file-name">
+                                                        {filename}
+                                                    </span>
+                                                    <span>
+                                                        <FormattedDate
+                                                            date={
+                                                                post.data
+                                                                    .pubDate
+                                                            }
+                                                        />
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </details>
+                    ))
+                }
+            </section>
+        </main>
+        <Footer />
+        <script>
+            const folderToggle = document.querySelector("[data-folder-toggle]");
+            const folderGroups = Array.from(
+                document.querySelectorAll(".folder-group"),
+            );
+            const folderToggleLabel = folderToggle?.querySelector("span");
 
-			const updateFolderToggle = () => {
-				if (!folderToggle || !folderToggleLabel) return;
-				const hasClosedFolder = folderGroups.some((folder) => !folder.open);
-				folderToggle.setAttribute('aria-expanded', String(!hasClosedFolder));
-				folderToggleLabel.textContent = hasClosedFolder ? 'Expand all' : 'Collapse all';
-			};
+            const motionQuery = window.matchMedia(
+                "(prefers-reduced-motion: reduce)",
+            );
+            const transitionHandlers = new WeakMap();
+            const transitionTimers = new WeakMap();
 
-			folderToggle?.addEventListener('click', () => {
-				const shouldOpen = folderGroups.some((folder) => !folder.open);
-				for (const folder of folderGroups) {
-					folder.open = shouldOpen;
-				}
-				updateFolderToggle();
-			});
+            const updateFolderToggle = () => {
+                if (!folderToggle || !folderToggleLabel) return;
+                const hasClosedFolder = folderGroups.some(
+                    (folder) => !folder.open,
+                );
+                folderToggle.setAttribute(
+                    "aria-expanded",
+                    String(!hasClosedFolder),
+                );
+                folderToggleLabel.textContent = hasClosedFolder
+                    ? "Expand all"
+                    : "Collapse all";
+            };
 
-			for (const folder of folderGroups) {
-				folder.addEventListener('toggle', updateFolderToggle);
-			}
+            const contentFor = (folder) =>
+                folder.querySelector("[data-folder-content]");
 
-			updateFolderToggle();
-		</script>
-	</body>
+            const finishFolderAnimation = (folder, content, shouldOpen) => {
+                folder.dataset.animating = "false";
+                if (shouldOpen) {
+                    content.style.height = "auto";
+                    content.style.opacity = "1";
+                    content.style.transform = "translateY(0)";
+                } else {
+                    folder.open = false;
+                }
+                updateFolderToggle();
+            };
+
+            const setFolderOpen = (folder, shouldOpen, animate = true) => {
+                const content = contentFor(folder);
+                if (!content || folder.open === shouldOpen) return;
+
+                const currentTimer = transitionTimers.get(folder);
+                const currentHandler = transitionHandlers.get(content);
+                if (currentTimer) {
+                    window.clearTimeout(currentTimer);
+                }
+                if (currentHandler) {
+                    content.removeEventListener("transitionend", currentHandler);
+                }
+
+                if (!animate || motionQuery.matches) {
+                    folder.open = shouldOpen;
+                    content.style.height = shouldOpen ? "auto" : "0px";
+                    content.style.opacity = shouldOpen ? "1" : "0";
+                    content.style.transform = shouldOpen
+                        ? "translateY(0)"
+                        : "translateY(-0.35rem)";
+                    updateFolderToggle();
+                    return;
+                }
+
+                if (shouldOpen) {
+                    folder.open = true;
+                    content.style.height = "0px";
+                    content.style.opacity = "0";
+                    content.style.transform = "translateY(-0.35rem)";
+                } else {
+                    content.style.height = `${content.scrollHeight}px`;
+                    content.style.opacity = "1";
+                    content.style.transform = "translateY(0)";
+                }
+
+                requestAnimationFrame(() => {
+                    content.style.height = shouldOpen
+                        ? `${content.scrollHeight}px`
+                        : "0px";
+                    content.style.opacity = shouldOpen ? "1" : "0";
+                    content.style.transform = shouldOpen
+                        ? "translateY(0)"
+                        : "translateY(-0.35rem)";
+                });
+
+                const handleTransitionEnd = (event) => {
+                    if (event.propertyName !== "height") return;
+                    content.removeEventListener("transitionend", handleTransitionEnd);
+                    transitionHandlers.delete(content);
+                    const timer = transitionTimers.get(folder);
+                    if (timer) {
+                        window.clearTimeout(timer);
+                        transitionTimers.delete(folder);
+                    }
+                    finishFolderAnimation(folder, content, shouldOpen);
+                };
+
+                transitionHandlers.set(content, handleTransitionEnd);
+                content.addEventListener("transitionend", handleTransitionEnd);
+
+                transitionTimers.set(
+                    folder,
+                    window.setTimeout(() => {
+                        content.removeEventListener(
+                            "transitionend",
+                            handleTransitionEnd,
+                        );
+                        transitionHandlers.delete(content);
+                        transitionTimers.delete(folder);
+                        finishFolderAnimation(folder, content, shouldOpen);
+                    }, 260),
+                );
+            };
+
+            folderToggle?.addEventListener("click", () => {
+                const shouldOpen = folderGroups.some((folder) => !folder.open);
+                for (const folder of folderGroups) {
+                    setFolderOpen(folder, shouldOpen);
+                }
+                updateFolderToggle();
+            });
+
+            for (const folder of folderGroups) {
+                const content = contentFor(folder);
+                if (content) {
+                    content.style.height = folder.open ? "auto" : "0px";
+                    content.style.opacity = folder.open ? "1" : "0";
+                    content.style.transform = folder.open
+                        ? "translateY(0)"
+                        : "translateY(-0.35rem)";
+                }
+
+                folder.querySelector("summary")?.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    setFolderOpen(folder, !folder.open);
+                });
+                folder.addEventListener("toggle", updateFolderToggle);
+            }
+
+            updateFolderToggle();
+        </script>
+    </body>
 </html>
