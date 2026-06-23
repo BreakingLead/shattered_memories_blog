@@ -7,6 +7,7 @@
 - `4463775` - add pnpm-workspace.yaml. Adjusted the workspace configuration.
 - `741a56b` - Update blog UI and math rendering. Split styles, added the note publishing script, copied published math notes, rebuilt the blog index as a collapsible folder list, and added KaTeX styling support.
 - `ec0e1c8` - Switch markdown math to remark rehype. Configured Astro's remark/rehype processor with `remark-math` and `rehype-katex`.
+- `dabc965` - Add computer and Japanese notes. Added 49 published Markdown notes under `src/content/blog/05_计算机` and `src/content/blog/06_日语`.
 
 ## Work Process
 
@@ -15,6 +16,8 @@ I first inspected the Astro project structure and kept the changes aligned with 
 For note publishing, I added `scripts/publish-notes.mjs` and `pnpm publish:notes`. The script scans `/mnt/ssdmain/note`, reads frontmatter, and copies only Markdown files with `blog-publish: true` into `src/content/blog` while preserving directory structure.
 
 For the blog page, I replaced the card grid with a file-browser style list. Posts are grouped by directory using their content IDs, and each group uses native `<details>` / `<summary>` so the folder list can collapse without client-side JavaScript.
+
+For the later content import, I added computer and Japanese notes as separate content folders under `src/content/blog`. The Astro content collection handled the new Markdown files without schema changes because each file included `title`, `description`, and `pubDate` frontmatter.
 
 ## Theme Principle
 
@@ -39,3 +42,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - `dist` contains `.katex` / `.katex-display` output for math posts.
 - Work was committed as `741a56b`.
 - The remark/rehype switch was verified with `pnpm build` and committed as `ec0e1c8`.
+- The computer and Japanese note import was verified with `pnpm build`, producing 80 pages, and committed as `dabc965`.
