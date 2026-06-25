@@ -16,6 +16,7 @@
 - `3a1de9e` - Fix Vite dev blog browser. Removed the React island path that triggered Vite's dev React refresh failure and restored the blog browser as Astro markup with a local script.
 - `4375efe` - Add recent blog ordering. Set the production site URL to Netlify and added a `Folders` / `Recent` switch on the blog list.
 - `0b7638c` - Update blog content. Committed the latest blog content changes, added new notes, removed three starter posts, and cleaned a conflict-marker artifact from the high-geometry notes.
+- `b0f7312` - Publish Obsidian image assets. Rewrote Obsidian image embeds to public Markdown image URLs and copied referenced note assets into the site.
 
 ## Work Process
 
@@ -92,4 +93,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The Vite dev fix was verified with `pnpm build` and `pnpm dev`; `/blog/` and a `/blog/zhihu/...` article returned 200 in dev, and the generated blog page no longer references `astro-island`, `@astrojs/react`, or React refresh modules. The fix commit is `3a1de9e`.
 - The Netlify site URL and recent-post view were verified with `pnpm build`; generated RSS and sitemap output use `https://infmemories.netlify.app`, and `dist/blog/index.html` contains the `Folders` / `Recent` view controls. The commit is `4375efe`.
 - The blog content cleanup was verified by scanning for conflict markers, checking required frontmatter fields, and running `pnpm build`, which generated 105 pages. The content commit is `0b7638c`.
-- The Obsidian image fix was verified by confirming no `![[...]]` image embeds remain in `src/content/blog`, checking every `/obsidian-assets/...` Markdown reference has a matching file in `public/obsidian-assets`, sampling generated HTML image tags, and running `pnpm build`. The commit is pending until this work is committed.
+- The Obsidian image fix was verified by confirming no `![[...]]` image embeds remain in `src/content/blog`, checking every `/obsidian-assets/...` Markdown reference has a matching file in `public/obsidian-assets`, sampling generated HTML image tags, and running `pnpm build`. The commit is `b0f7312`.
