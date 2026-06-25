@@ -19,6 +19,7 @@
 - `b0f7312` - Publish Obsidian image assets. Rewrote Obsidian image embeds to public Markdown image URLs and copied referenced note assets into the site.
 - `9b0a9d1` - Document Obsidian image assets. Recorded the image publishing workflow, principles, verification steps, and implementation commit hash in this process log.
 - `bdb71c6` - Replace about page with CV. Added the `/cv/` resume page, moved navigation from `About` to `CV`, removed the starter about page, and added CV-specific styles.
+- `947375e` - Split CV into Chinese and English pages. Moved the English CV to `/cv/en/`, added a Chinese CV at `/cv/zh/`, kept `/cv/` as a redirect, and added language switching.
 
 ## Work Process
 
@@ -51,6 +52,8 @@ For the Obsidian image fix, I scanned published Markdown for `![[...]]` embeds, 
 For the current content checkpoint, I inspected the worktree before writing this note. `src/content/blog/07_数学/高等几何/周兴和.md` has an uncommitted change that reintroduces empty `<mark class="conflict ...">` markup in the description and body. Treat that file as unresolved content: clean or regenerate it intentionally before including it in the next content commit.
 
 For the CV page migration, I replaced the starter `about.astro` route with `src/pages/cv.astro` and updated the header navigation from `About` to `CV`. The public resume content was based on `/mnt/ssdmain/note/ira-memories/簡歷.typ`, the existing homepage summary, and the public GitHub profile for `BreakingLead`. I kept private contact details such as phone and WeChat out of the public page, while retaining email, GitHub, blog, project, skill, experience, and education information. CV-specific styling lives in `src/styles/cv.css` instead of expanding global or homepage CSS.
+
+For the bilingual CV split, I moved the original English resume to `src/pages/cv/en.astro`, added a Chinese version at `src/pages/cv/zh.astro`, and kept `/cv/` as a lightweight redirect page to `/cv/zh/`. Both language pages share `src/styles/cv.css` and include an in-page language switcher, while the site header points to the Chinese CV as the default public entry.
 
 ## Theme Principle
 
@@ -103,3 +106,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The Obsidian image process documentation was committed as `9b0a9d1`.
 - Current verification before this note: `git status --short` shows only `src/content/blog/07_数学/高等几何/周兴和.md` plus this `PROCESS.md` edit as pending work.
 - The CV route migration was verified with `pnpm build`, which generated `dist/cv/index.html` and no longer generated an `/about/` route. The implementation commit is `bdb71c6`.
+- The bilingual CV split was verified with `pnpm build`, which generated `dist/cv/index.html`, `dist/cv/zh/index.html`, and `dist/cv/en/index.html`. The implementation commit is `947375e`.
