@@ -184,4 +184,4 @@ do的用法
 
 关于`<formals>`的写法：
 
-![[Pasted image 20260302174926.png]]
+![Pasted image 20260302174926](/obsidian-assets/pasted-image-20260302174926.png)

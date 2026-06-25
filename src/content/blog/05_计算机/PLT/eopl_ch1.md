@@ -22,9 +22,9 @@ pubDate: 2026-06-23
 
 **練習1.1**
 
-![[81bfbac27cd6be94ab51dfa2e3e2888d.jpg]]
+![81bfbac27cd6be94ab51dfa2e3e2888d](/obsidian-assets/81bfbac27cd6be94ab51dfa2e3e2888d.jpg)
 
-![[74230a7dc5f7ecca93d042aa640886bf_720.jpg]]
+![74230a7dc5f7ecca93d042aa640886bf_720](/obsidian-assets/74230a7dc5f7ecca93d042aa640886bf_720.jpg)
 
 **練習1.2**
 

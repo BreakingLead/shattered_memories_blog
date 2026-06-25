@@ -43,6 +43,8 @@ For the deployment and blog-list update, I set Astro's `site` to `https://infmem
 
 For the blog content cleanup, I scanned `src/content/blog` for merge conflict markers and frontmatter problems before committing the pending content edits. The only true conflict artifact was in `07_数学/高等几何/周兴和.md`, where empty `<mark class="conflict ...">` markup had leaked into both the description and body. I replaced it with a plain placeholder description and body, confirmed every Markdown/MDX file had `title` and `pubDate`, and left `markdown-style-guide.md` / `using-mdx.mdx` untouched as requested.
 
+For the Obsidian image fix, I scanned published Markdown for `![[...]]` embeds, copied the referenced source files from `/mnt/ssdmain/note/assets` into `public/obsidian-assets/`, and rewrote the Markdown to standard `![alt](/obsidian-assets/file.ext)` image syntax. I also updated `scripts/publish-notes.mjs` so future `pnpm publish:notes` runs build an asset index from the note vault, copy referenced image files, and rewrite Obsidian image embeds during publishing instead of leaving broken links in Astro content.
+
 ## Theme Principle
 
 The light/dark mode works through CSS custom properties. `theme.css` defines semantic tokens such as `--bg`, `--text`, `--surface`, `--border`, and `--accent`. A small inline script in `BaseHead.astro` reads `localStorage.theme`, falls back to `prefers-color-scheme`, and sets `document.documentElement.dataset.theme`. Components then use the same semantic variables, so switching theme only changes token values rather than duplicating component styles.
@@ -72,6 +74,8 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Canonical site configuration should be verified in generated files, not just in `astro.config.mjs`; checking `dist/rss.xml` and `dist/sitemap-0.xml` catches stale deployment URLs.
 - A second list view should reuse the same post row data instead of introducing a separate content model. The recent view is just a pre-sorted projection of the same content entries.
 - Content cleanup should separate real defects from intentional placeholders. `占坑`, `待续`, and `empty` can be valid note states, while explicit conflict markup should be removed before publishing.
+- Obsidian image embeds are editor-specific syntax, not portable Markdown. Published notes should use public/static asset URLs so Astro and deployed static hosts can serve them without Obsidian resolution logic.
+- Asset filenames need URL-safe normalization, but the original filename should remain the lookup key. This lets notes keep human-readable Obsidian names while the site serves predictable lowercase paths.
 
 ## Verification
 
@@ -88,3 +92,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The Vite dev fix was verified with `pnpm build` and `pnpm dev`; `/blog/` and a `/blog/zhihu/...` article returned 200 in dev, and the generated blog page no longer references `astro-island`, `@astrojs/react`, or React refresh modules. The fix commit is `3a1de9e`.
 - The Netlify site URL and recent-post view were verified with `pnpm build`; generated RSS and sitemap output use `https://infmemories.netlify.app`, and `dist/blog/index.html` contains the `Folders` / `Recent` view controls. The commit is `4375efe`.
 - The blog content cleanup was verified by scanning for conflict markers, checking required frontmatter fields, and running `pnpm build`, which generated 105 pages. The content commit is `0b7638c`.
+- The Obsidian image fix was verified by confirming no `![[...]]` image embeds remain in `src/content/blog`, checking every `/obsidian-assets/...` Markdown reference has a matching file in `public/obsidian-assets`, sampling generated HTML image tags, and running `pnpm build`. The commit is pending until this work is committed.

@@ -5,4 +5,4 @@ description: "linux commands"
 pubDate: 2026-06-23
 ---
 
-![[Pasted image 20260222125704.png]]
+![Pasted image 20260222125704](/obsidian-assets/pasted-image-20260222125704.png)

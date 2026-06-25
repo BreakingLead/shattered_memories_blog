@@ -5,4 +5,4 @@ description: "About frameworks"
 pubDate: 2026-06-23
 ---
 
-![[XaaS.png]]
+![XaaS](/obsidian-assets/xaas.png)
