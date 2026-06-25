@@ -15,6 +15,7 @@
 - `1e1d609` - Import Zhihu articles. Imported 18 Zhihu posts into `src/content/blog/zhihu/` and saved public profile/article manifests under `data/zhihu/`.
 - `3a1de9e` - Fix Vite dev blog browser. Removed the React island path that triggered Vite's dev React refresh failure and restored the blog browser as Astro markup with a local script.
 - `4375efe` - Add recent blog ordering. Set the production site URL to Netlify and added a `Folders` / `Recent` switch on the blog list.
+- `0b7638c` - Update blog content. Committed the latest blog content changes, added new notes, removed three starter posts, and cleaned a conflict-marker artifact from the high-geometry notes.
 
 ## Work Process
 
@@ -39,6 +40,8 @@ For the Zhihu article import, I used the installed `zhihu-fetcher` skill as the 
 For the Vite dev fix, I reproduced the issue by starting `pnpm dev` and requesting the React island module directly. The page HTML rendered with status 200, but `/src/components/BlogFolderBrowser.tsx` and the Astro React renderer returned 500 from Vite with `Missing field moduleType` in `builtin:vite-react-refresh-wrapper`. The lockfile showed Astro using Vite 7.3.5 while `@astrojs/react` brought `@vitejs/plugin-react` through Vite 8.0.16, so the failure was in the dev-only React refresh path rather than the blog content. I removed the React island, deleted the React integration and dependencies, and moved the blog browser back to server-rendered Astro markup plus a small page script for filtering, expand/collapse state, and latest-post focus.
 
 For the deployment and blog-list update, I set Astro's `site` to `https://infmemories.netlify.app` so canonical URLs, RSS, and sitemap output use the Netlify domain. I also added a two-option blog list control: `Folders` keeps the existing directory tree, and `Recent` shows all posts in descending `pubDate` order. The filter, expand/collapse button, and latest-post jump reuse the same local script and operate on whichever view is active.
+
+For the blog content cleanup, I scanned `src/content/blog` for merge conflict markers and frontmatter problems before committing the pending content edits. The only true conflict artifact was in `07_数学/高等几何/周兴和.md`, where empty `<mark class="conflict ...">` markup had leaked into both the description and body. I replaced it with a plain placeholder description and body, confirmed every Markdown/MDX file had `title` and `pubDate`, and left `markdown-style-guide.md` / `using-mdx.mdx` untouched as requested.
 
 ## Theme Principle
 
@@ -68,6 +71,7 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - React is not worth keeping for a small isolated widget when it pulls in a fragile dev transform path. The folder browser is simple enough as Astro HTML plus scoped browser script.
 - Canonical site configuration should be verified in generated files, not just in `astro.config.mjs`; checking `dist/rss.xml` and `dist/sitemap-0.xml` catches stale deployment URLs.
 - A second list view should reuse the same post row data instead of introducing a separate content model. The recent view is just a pre-sorted projection of the same content entries.
+- Content cleanup should separate real defects from intentional placeholders. `占坑`, `待续`, and `empty` can be valid note states, while explicit conflict markup should be removed before publishing.
 
 ## Verification
 
@@ -83,3 +87,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The Zhihu article import was verified with `pnpm build`, which generated 98 pages including 18 `/blog/zhihu/...` routes. The import commit is `1e1d609`.
 - The Vite dev fix was verified with `pnpm build` and `pnpm dev`; `/blog/` and a `/blog/zhihu/...` article returned 200 in dev, and the generated blog page no longer references `astro-island`, `@astrojs/react`, or React refresh modules. The fix commit is `3a1de9e`.
 - The Netlify site URL and recent-post view were verified with `pnpm build`; generated RSS and sitemap output use `https://infmemories.netlify.app`, and `dist/blog/index.html` contains the `Folders` / `Recent` view controls. The commit is `4375efe`.
+- The blog content cleanup was verified by scanning for conflict markers, checking required frontmatter fields, and running `pnpm build`, which generated 105 pages. The content commit is `0b7638c`.
