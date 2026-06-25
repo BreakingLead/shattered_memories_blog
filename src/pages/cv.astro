@@ -1,0 +1,218 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+import '../styles/cv.css';
+
+const pageTitle = `CV | ${SITE_TITLE}`;
+const description =
+	'CV for BreakingLead, an independent developer focused on graphics systems, formal verification, functional programming, and practical automation.';
+
+const contacts = [
+	{ label: 'Email', value: 'breakingleadqwq@gmail.com', href: 'mailto:breakingleadqwq@gmail.com' },
+	{ label: 'GitHub', value: 'github.com/BreakingLead', href: 'https://github.com/BreakingLead' },
+	{ label: 'Blog', value: 'infmemories.netlify.app/blog', href: '/blog/' },
+	{ label: 'Location', value: 'Shanghai / Remote' },
+];
+
+const highlights = [
+	'54 public GitHub repositories, with work centered on graphics, Rust, Lisp, and developer tooling.',
+	'Built a Rust + WebGPU voxel engine with ECS architecture and source-level Minecraft mod compatibility as a design goal.',
+	'Used Lean to formalize and verify IMO-style mathematics, combining proof engineering with functional programming.',
+	'Delivered freelance Python automation and data-processing tools from requirements discussion through handoff.',
+];
+
+const experiences = [
+	{
+		period: '2025.01 - 2025.03',
+		title: 'Formal Verification Developer',
+		company: '整数智能信息技术（杭州）有限责任公司',
+		meta: 'Remote · Lean · IMO · Functional Programming',
+		points: ['Formalized and verified competition mathematics problems with the Lean theorem prover.'],
+	},
+	{
+		period: '2025.03 - Present',
+		title: 'Freelance Developer',
+		company: 'Independent',
+		meta: 'Remote · Python · OpenCV · pandas · Automation',
+		points: [
+			'Built scripts and tools for spreadsheet processing, image recognition, data cleanup, and task automation.',
+			'Handled requirements clarification, technical planning, implementation, and delivery independently.',
+		],
+	},
+];
+
+const projects = [
+	{
+		name: 'Blockworld',
+		href: 'https://github.com/BreakingLead/blockworld',
+		meta: 'Rust · WebGPU · ECS · Voxel Rendering · 89 stars',
+		summary:
+			'A Minecraft-like voxel game implementation with a Rust rendering stack, WebGPU pipeline, and entity-component architecture.',
+		points: [
+			'Designed the core engine architecture, entity management, and rendering pipeline.',
+			'Explored high-performance per-voxel rendering and mod-compatibility-oriented architecture.',
+		],
+	},
+	{
+		name: 'Moonbite',
+		href: 'https://github.com/BreakingLead/moonbite',
+		meta: 'Zig · Compiler · Type Systems',
+		summary:
+			'A mini MoonBit compiler experiment covering parsing, type checking, and code-generation ideas.',
+		points: [
+			'Built compiler components while exploring Hindley-Milner style typing and language implementation tradeoffs.',
+		],
+	},
+	{
+		name: 'Technical Writing',
+		href: '/blog/',
+		meta: 'Graphics · Programming Languages · Rust · Mathematics',
+		summary:
+			'Maintains notes and essays on graphics libraries, C/C++ linkage, CPS, ASTs, Zig, Rust, math, and language learning.',
+		points: ['Publishes imported notes and Zhihu articles as a browsable file-style blog archive.'],
+	},
+];
+
+const skillGroups = [
+	{
+		label: 'Languages',
+		items: ['Rust', 'TypeScript', 'C', 'Go', 'Python', 'Zig', 'Haskell', 'Scheme Lisp', 'Lean4'],
+	},
+	{
+		label: 'Systems & Graphics',
+		items: ['WebGPU', 'WebAssembly', 'ECS', 'Ray Tracing', 'Linux', 'Docker', 'Git'],
+	},
+	{
+		label: 'Web & Backend',
+		items: ['React', 'Astro', 'Vite', 'Node.js', 'Bun', 'FastAPI', 'SQLite', 'Redis'],
+	},
+	{
+		label: 'Theory',
+		items: ['Formal Verification', 'Type Systems', 'Dependent Types', 'System F', 'Category Theory'],
+	},
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={pageTitle} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main class="cv-shell">
+			<section class="cv-hero" aria-labelledby="cv-title">
+				<div>
+					<p class="eyebrow">Curriculum Vitae</p>
+					<h1 id="cv-title">千秋 / BreakingLead</h1>
+					<p class="cv-role">Independent Developer · Graphics Systems · Formal Verification</p>
+					<p class="cv-summary">
+						I build tools where theory and implementation meet: graphics engines, compiler experiments,
+						functional programming, theorem proving, and practical automation. I am looking for open
+						source, developer tooling, formal methods, graphics, or general development work in Shanghai
+						or remote teams.
+					</p>
+				</div>
+				<aside class="cv-contact" aria-label="Contact information">
+					{
+						contacts.map((item) => (
+							<div>
+								<span>{item.label}</span>
+								{item.href ? <a href={item.href}>{item.value}</a> : <strong>{item.value}</strong>}
+							</div>
+						))
+					}
+				</aside>
+			</section>
+
+			<section class="cv-section" aria-labelledby="summary-title">
+				<h2 id="summary-title">Summary</h2>
+				<ul class="cv-highlight-list">
+					{highlights.map((item) => <li>{item}</li>)}
+				</ul>
+			</section>
+
+			<section class="cv-section" aria-labelledby="experience-title">
+				<h2 id="experience-title">Experience</h2>
+				<div class="timeline">
+					{
+						experiences.map((item) => (
+							<article class="timeline-item">
+								<p class="period">{item.period}</p>
+								<div>
+									<h3>{item.title}</h3>
+									<p class="item-meta">
+										{item.company} · {item.meta}
+									</p>
+									<ul>
+										{item.points.map((point) => <li>{point}</li>)}
+									</ul>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="cv-section" aria-labelledby="projects-title">
+				<h2 id="projects-title">Selected Projects</h2>
+				<div class="project-grid">
+					{
+						projects.map((project) => (
+							<article class="project-card">
+								<a href={project.href}>
+									<h3>{project.name}</h3>
+								</a>
+								<p class="item-meta">{project.meta}</p>
+								<p>{project.summary}</p>
+								<ul>
+									{project.points.map((point) => <li>{point}</li>)}
+								</ul>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="cv-section" aria-labelledby="skills-title">
+				<h2 id="skills-title">Skills</h2>
+				<div class="skill-grid">
+					{
+						skillGroups.map((group) => (
+							<section class="skill-group" aria-label={group.label}>
+								<h3>{group.label}</h3>
+								<div class="skill-tags">
+									{group.items.map((item) => <span>{item}</span>)}
+								</div>
+							</section>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="cv-section cv-two-column" aria-labelledby="education-title">
+				<div>
+					<h2 id="education-title">Education</h2>
+					<article class="plain-block">
+						<h3>Northwestern Polytechnical University Affiliated High School</h3>
+						<p class="item-meta">2023.09 - 2026.06 · Science track</p>
+					</article>
+				</div>
+				<div>
+					<h2>Public Profile</h2>
+					<article class="plain-block">
+						<h3>GitHub: BreakingLead</h3>
+						<p class="item-meta">Computer Graphics · Rustacean · Lisper</p>
+						<p>
+							Public profile and repository list show active work across graphics, compiler experiments,
+							dotfiles, Lean study, and programming-language learning.
+						</p>
+					</article>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

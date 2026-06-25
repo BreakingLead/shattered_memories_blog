@@ -1,0 +1,233 @@
+.cv-shell {
+	width: min(1120px, calc(100% - 2rem));
+	padding: 3.5rem 0 5rem;
+}
+
+.cv-hero {
+	display: grid;
+	grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+	gap: 1.25rem;
+	align-items: stretch;
+	margin-bottom: 1.25rem;
+}
+
+.cv-hero > div,
+.cv-contact,
+.cv-section {
+	border: 1px solid var(--border-strong);
+	border-radius: 8px;
+	background: color-mix(in srgb, var(--surface) 92%, transparent);
+	box-shadow: var(--shadow);
+}
+
+.cv-hero > div {
+	padding: clamp(1.4rem, 4vw, 3rem);
+}
+
+.eyebrow,
+.period,
+.item-meta {
+	color: var(--subtle);
+	font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+	font-size: 0.86rem;
+}
+
+.eyebrow {
+	margin-bottom: 0.7rem;
+	text-transform: uppercase;
+}
+
+.cv-role {
+	margin-bottom: 1rem;
+	color: var(--accent-strong);
+	font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+	font-size: 1rem;
+}
+
+.cv-summary {
+	max-width: 68ch;
+	margin: 0;
+	color: var(--muted);
+	font-size: 1.05rem;
+}
+
+.cv-contact {
+	display: grid;
+	align-content: center;
+	gap: 0.8rem;
+	padding: 1.25rem;
+}
+
+.cv-contact div {
+	display: grid;
+	gap: 0.15rem;
+}
+
+.cv-contact span {
+	color: var(--subtle);
+	font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+	font-size: 0.78rem;
+	text-transform: uppercase;
+}
+
+.cv-contact a,
+.cv-contact strong {
+	color: var(--text);
+	font-size: 0.95rem;
+	font-weight: 700;
+	overflow-wrap: anywhere;
+}
+
+.cv-section {
+	margin-top: 1.25rem;
+	padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.cv-section h2 {
+	margin-bottom: 1rem;
+	color: var(--accent);
+	font-size: 1.4rem;
+}
+
+.cv-section h3 {
+	margin-bottom: 0.35rem;
+	font-size: 1.08rem;
+}
+
+.cv-highlight-list,
+.timeline ul,
+.project-card ul {
+	display: grid;
+	gap: 0.55rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.cv-highlight-list li,
+.timeline li,
+.project-card li {
+	position: relative;
+	padding-left: 1.25rem;
+	color: var(--muted);
+}
+
+.cv-highlight-list li::before,
+.timeline li::before,
+.project-card li::before {
+	position: absolute;
+	left: 0;
+	color: var(--accent);
+	content: '>';
+}
+
+.timeline {
+	display: grid;
+	gap: 1.1rem;
+}
+
+.timeline-item {
+	display: grid;
+	grid-template-columns: 9rem minmax(0, 1fr);
+	gap: 1.25rem;
+	padding-top: 1.1rem;
+	border-top: 1px solid var(--border);
+}
+
+.timeline-item:first-child {
+	padding-top: 0;
+	border-top: 0;
+}
+
+.period,
+.item-meta {
+	margin-bottom: 0.55rem;
+}
+
+.project-grid,
+.skill-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.project-card,
+.skill-group,
+.plain-block {
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	background: var(--surface-muted);
+}
+
+.project-card,
+.skill-group {
+	padding: 1rem;
+}
+
+.project-card a {
+	color: var(--text);
+	text-decoration: none;
+}
+
+.project-card a:hover h3 {
+	color: var(--accent-strong);
+}
+
+.project-card p,
+.plain-block p {
+	color: var(--muted);
+}
+
+.skill-grid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.skill-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+}
+
+.skill-tags span {
+	padding: 0.32rem 0.5rem;
+	border: 1px solid var(--border-strong);
+	border-radius: 6px;
+	background: var(--surface-raised);
+	color: var(--text);
+	font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+	font-size: 0.8rem;
+}
+
+.cv-two-column {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+.plain-block {
+	padding: 1rem;
+}
+
+.plain-block p:last-child,
+.project-card p:last-child {
+	margin-bottom: 0;
+}
+
+@media (max-width: 860px) {
+	.cv-shell {
+		width: min(100% - 1rem, 960px);
+		padding: 1rem 0 3rem;
+	}
+
+	.cv-hero,
+	.project-grid,
+	.skill-grid,
+	.cv-two-column {
+		grid-template-columns: 1fr;
+	}
+
+	.timeline-item {
+		grid-template-columns: 1fr;
+		gap: 0.25rem;
+	}
+}
