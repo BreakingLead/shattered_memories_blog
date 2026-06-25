@@ -1,0 +1,217 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import '../../styles/cv.css';
+
+const pageTitle = `中文简历 | ${SITE_TITLE}`;
+const description =
+	'BreakingLead 的中文简历，关注图形系统、形式化验证、函数式编程、编译器实验与自动化开发。';
+
+const contacts = [
+	{ label: '邮箱', value: 'breakingleadqwq@gmail.com', href: 'mailto:breakingleadqwq@gmail.com' },
+	{ label: 'GitHub', value: 'github.com/BreakingLead', href: 'https://github.com/BreakingLead' },
+	{ label: '博客', value: 'infmemories.netlify.app/blog', href: '/blog/' },
+	{ label: '地点', value: '上海 / 远程' },
+];
+
+const highlights = [
+	'独立开发者，GitHub 公开仓库 54 个，长期关注图形学、Rust、Lisp、开发工具与编程语言。',
+	'使用 Rust + WebGPU 从零实现类 Minecraft 体素游戏引擎，设计目标包括 ECS 架构和模组兼容方向。',
+	'使用 Lean 对 IMO 风格数学题进行形式化与验证，熟悉函数式编程和证明工程。',
+	'能独立完成 Python 自动化、数据处理和图像识别相关工具，从需求沟通到交付全流程负责。',
+];
+
+const experiences = [
+	{
+		period: '2025.01 - 2025.03',
+		title: '形式化验证开发',
+		company: '整数智能信息技术（杭州）有限责任公司',
+		meta: '远程 · Lean · IMO · 函数式编程',
+		points: ['使用 Lean 证明助手对数学竞赛题目进行定理形式化与验证。'],
+	},
+	{
+		period: '2025.03 - 至今',
+		title: '自由职业 / 接单开发',
+		company: 'Independent',
+		meta: '远程 · Python · OpenCV · pandas · 自动化',
+		points: [
+			'独立开发表格处理、图像识别、数据清洗和任务自动化脚本。',
+			'负责需求澄清、方案设计、代码实现、交付与后续沟通。',
+		],
+	},
+];
+
+const projects = [
+	{
+		name: 'Blockworld',
+		href: 'https://github.com/BreakingLead/blockworld',
+		meta: 'Rust · WebGPU · ECS · 体素渲染 · 89 stars',
+		summary:
+			'类 Minecraft 体素游戏实现，使用 Rust 渲染栈、WebGPU 管线和实体组件系统构建核心架构。',
+		points: [
+			'独立设计并实现游戏核心架构、实体管理和渲染管线。',
+			'探索高性能逐体素渲染，以及面向 Minecraft 模组源码级兼容的架构方向。',
+		],
+	},
+	{
+		name: 'Moonbite',
+		href: 'https://github.com/BreakingLead/moonbite',
+		meta: 'Zig · 编译器 · 类型系统',
+		summary: 'Mini MoonBit 编译器实验项目，覆盖解析、类型检查和代码生成方向的实践。',
+		points: ['在项目中探索 Hindley-Milner 风格类型系统和语言实现中的工程取舍。'],
+	},
+	{
+		name: '技术写作与笔记',
+		href: '/blog/',
+		meta: '图形学 · 编程语言 · Rust · 数学',
+		summary:
+			'维护关于图形库、C/C++ 链接、CPS、AST、Zig、Rust、数学和语言学习的笔记与文章。',
+		points: ['将本地笔记与知乎文章整理为文件浏览器风格的博客归档，便于检索和持续发布。'],
+	},
+];
+
+const skillGroups = [
+	{
+		label: '编程语言',
+		items: ['Rust', 'TypeScript', 'C', 'Go', 'Python', 'Zig', 'Haskell', 'Scheme Lisp', 'Lean4'],
+	},
+	{
+		label: '系统与图形',
+		items: ['WebGPU', 'WebAssembly', 'ECS', 'Ray Tracing', 'Linux', 'Docker', 'Git'],
+	},
+	{
+		label: 'Web 与后端',
+		items: ['React', 'Astro', 'Vite', 'Node.js', 'Bun', 'FastAPI', 'SQLite', 'Redis'],
+	},
+	{
+		label: '理论方向',
+		items: ['形式化验证', '类型系统', '依赖类型', 'System F', '范畴论'],
+	},
+];
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={pageTitle} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main class="cv-shell">
+			<nav class="cv-language" aria-label="CV language">
+				<a class="active" href="/cv/zh/" aria-current="page">中文</a>
+				<a href="/cv/en/">English</a>
+			</nav>
+
+			<section class="cv-hero" aria-labelledby="cv-title">
+				<div>
+					<p class="eyebrow">Curriculum Vitae</p>
+					<h1 id="cv-title">千秋 / BreakingLead</h1>
+					<p class="cv-role">独立开发者 · 图形系统 · 形式化验证</p>
+					<p class="cv-summary">
+						我关注理论和工程交汇的系统：图形引擎、编译器实验、函数式编程、定理证明和实用自动化。
+						目前寻找上海或远程的开源、开发工具、形式化方法、图形学或通用开发相关工作机会。
+					</p>
+				</div>
+				<aside class="cv-contact" aria-label="联系方式">
+					{
+						contacts.map((item) => (
+							<div>
+								<span>{item.label}</span>
+								{item.href ? <a href={item.href}>{item.value}</a> : <strong>{item.value}</strong>}
+							</div>
+						))
+					}
+				</aside>
+			</section>
+
+			<section class="cv-section" aria-labelledby="summary-title">
+				<h2 id="summary-title">个人总结</h2>
+				<ul class="cv-highlight-list">
+					{highlights.map((item) => <li>{item}</li>)}
+				</ul>
+			</section>
+
+			<section class="cv-section" aria-labelledby="experience-title">
+				<h2 id="experience-title">工作经历</h2>
+				<div class="timeline">
+					{
+						experiences.map((item) => (
+							<article class="timeline-item">
+								<p class="period">{item.period}</p>
+								<div>
+									<h3>{item.title}</h3>
+									<p class="item-meta">
+										{item.company} · {item.meta}
+									</p>
+									<ul>
+										{item.points.map((point) => <li>{point}</li>)}
+									</ul>
+								</div>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="cv-section" aria-labelledby="projects-title">
+				<h2 id="projects-title">项目经历</h2>
+				<div class="project-grid">
+					{
+						projects.map((project) => (
+							<article class="project-card">
+								<a href={project.href}>
+									<h3>{project.name}</h3>
+								</a>
+								<p class="item-meta">{project.meta}</p>
+								<p>{project.summary}</p>
+								<ul>
+									{project.points.map((point) => <li>{point}</li>)}
+								</ul>
+							</article>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="cv-section" aria-labelledby="skills-title">
+				<h2 id="skills-title">专业技能</h2>
+				<div class="skill-grid">
+					{
+						skillGroups.map((group) => (
+							<section class="skill-group" aria-label={group.label}>
+								<h3>{group.label}</h3>
+								<div class="skill-tags">
+									{group.items.map((item) => <span>{item}</span>)}
+								</div>
+							</section>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="cv-section cv-two-column" aria-labelledby="education-title">
+				<div>
+					<h2 id="education-title">教育经历</h2>
+					<article class="plain-block">
+						<h3>西北工业大学附属中学</h3>
+						<p class="item-meta">2023.09 - 2026.06 · 高中 · 理科</p>
+					</article>
+				</div>
+				<div>
+					<h2>公开主页</h2>
+					<article class="plain-block">
+						<h3>GitHub: BreakingLead</h3>
+						<p class="item-meta">Computer Graphics · Rustacean · Lisper</p>
+						<p>
+							公开主页和仓库列表展示了图形学、编译器实验、dotfiles、Lean 学习和编程语言学习等方向的持续实践。
+						</p>
+					</article>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
