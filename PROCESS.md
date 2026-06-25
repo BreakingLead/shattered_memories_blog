@@ -17,6 +17,8 @@
 - `4375efe` - Add recent blog ordering. Set the production site URL to Netlify and added a `Folders` / `Recent` switch on the blog list.
 - `0b7638c` - Update blog content. Committed the latest blog content changes, added new notes, removed three starter posts, and cleaned a conflict-marker artifact from the high-geometry notes.
 - `b0f7312` - Publish Obsidian image assets. Rewrote Obsidian image embeds to public Markdown image URLs and copied referenced note assets into the site.
+- `9b0a9d1` - Document Obsidian image assets. Recorded the image publishing workflow, principles, verification steps, and implementation commit hash in this process log.
+- `bdb71c6` - Replace about page with CV. Added the `/cv/` resume page, moved navigation from `About` to `CV`, removed the starter about page, and added CV-specific styles.
 
 ## Work Process
 
@@ -45,6 +47,10 @@ For the deployment and blog-list update, I set Astro's `site` to `https://infmem
 For the blog content cleanup, I scanned `src/content/blog` for merge conflict markers and frontmatter problems before committing the pending content edits. The only true conflict artifact was in `07_数学/高等几何/周兴和.md`, where empty `<mark class="conflict ...">` markup had leaked into both the description and body. I replaced it with a plain placeholder description and body, confirmed every Markdown/MDX file had `title` and `pubDate`, and left `markdown-style-guide.md` / `using-mdx.mdx` untouched as requested.
 
 For the Obsidian image fix, I scanned published Markdown for `![[...]]` embeds, copied the referenced source files from `/mnt/ssdmain/note/assets` into `public/obsidian-assets/`, and rewrote the Markdown to standard `![alt](/obsidian-assets/file.ext)` image syntax. I also updated `scripts/publish-notes.mjs` so future `pnpm publish:notes` runs build an asset index from the note vault, copy referenced image files, and rewrite Obsidian image embeds during publishing instead of leaving broken links in Astro content.
+
+For the current content checkpoint, I inspected the worktree before writing this note. `src/content/blog/07_数学/高等几何/周兴和.md` has an uncommitted change that reintroduces empty `<mark class="conflict ...">` markup in the description and body. Treat that file as unresolved content: clean or regenerate it intentionally before including it in the next content commit.
+
+For the CV page migration, I replaced the starter `about.astro` route with `src/pages/cv.astro` and updated the header navigation from `About` to `CV`. The public resume content was based on `/mnt/ssdmain/note/ira-memories/簡歷.typ`, the existing homepage summary, and the public GitHub profile for `BreakingLead`. I kept private contact details such as phone and WeChat out of the public page, while retaining email, GitHub, blog, project, skill, experience, and education information. CV-specific styling lives in `src/styles/cv.css` instead of expanding global or homepage CSS.
 
 ## Theme Principle
 
@@ -94,3 +100,6 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The Netlify site URL and recent-post view were verified with `pnpm build`; generated RSS and sitemap output use `https://infmemories.netlify.app`, and `dist/blog/index.html` contains the `Folders` / `Recent` view controls. The commit is `4375efe`.
 - The blog content cleanup was verified by scanning for conflict markers, checking required frontmatter fields, and running `pnpm build`, which generated 105 pages. The content commit is `0b7638c`.
 - The Obsidian image fix was verified by confirming no `![[...]]` image embeds remain in `src/content/blog`, checking every `/obsidian-assets/...` Markdown reference has a matching file in `public/obsidian-assets`, sampling generated HTML image tags, and running `pnpm build`. The commit is `b0f7312`.
+- The Obsidian image process documentation was committed as `9b0a9d1`.
+- Current verification before this note: `git status --short` shows only `src/content/blog/07_数学/高等几何/周兴和.md` plus this `PROCESS.md` edit as pending work.
+- The CV route migration was verified with `pnpm build`, which generated `dist/cv/index.html` and no longer generated an `/about/` route. The implementation commit is `bdb71c6`.
