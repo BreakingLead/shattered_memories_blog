@@ -4,6 +4,7 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import { withBase } from "../../lib/paths";
 import "../../styles/blog-index.css";
 
 const posts = (await getCollection("blog")).sort((a, b) =>
@@ -54,7 +55,7 @@ const folderGroups = directoryGroups.map(([directory, directoryPosts]) => ({
             pubDate: post.data.pubDate.toISOString(),
             formattedDate: dateFormatter.format(post.data.pubDate),
             filename,
-            href: `/blog/${post.id}/`,
+            href: withBase(`/blog/${post.id}/`),
             path: `/blog/${post.id}`,
             isLatest: post.id === latestPost?.id,
             searchText:

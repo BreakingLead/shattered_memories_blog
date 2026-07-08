@@ -3,17 +3,20 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
+import { withBase } from '../lib/paths';
 import '../styles/cv.css';
 
 const title = `CV | ${SITE_TITLE}`;
 const description = 'Choose a CV language for BreakingLead.';
+const cvZhUrl = withBase('/cv/zh/');
+const cvEnUrl = withBase('/cv/en/');
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
-		<meta http-equiv="refresh" content="0; url=/cv/zh/" />
+		<meta http-equiv="refresh" content={`0; url=${cvZhUrl}`} />
 	</head>
 	<body>
 		<Header />
@@ -22,8 +25,8 @@ const description = 'Choose a CV language for BreakingLead.';
 				<h1 id="cv-redirect-title">CV</h1>
 				<p>Redirecting to the Chinese CV.</p>
 				<p>
-					<a href="/cv/zh/">中文简历</a>
-					<a href="/cv/en/">English CV</a>
+					<a href={cvZhUrl}>中文简历</a>
+					<a href={cvEnUrl}>English CV</a>
 				</p>
 			</section>
 		</main>

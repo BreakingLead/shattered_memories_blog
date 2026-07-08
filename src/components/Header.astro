@@ -1,11 +1,14 @@
 ---
 import { SITE_TITLE } from '../consts';
+import { withBase } from '../lib/paths';
 import HeaderLink from './HeaderLink.astro';
+
+const homeUrl = withBase('/');
 ---
 
 <header>
 	<nav>
-		<a class="brand" href="/" aria-label={`${SITE_TITLE} home`}>
+		<a class="brand" href={homeUrl} aria-label={`${SITE_TITLE} home`}>
 			<span class="brand-mark">SM</span>
 			<span>{SITE_TITLE}</span>
 		</a>

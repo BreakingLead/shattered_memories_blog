@@ -3,6 +3,7 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import Header from "../../components/Header.astro";
 import { SITE_TITLE } from "../../consts";
+import { withBase } from "../../lib/paths";
 import "../../styles/cv.css";
 
 const pageTitle = `中文简历 | ${SITE_TITLE}`;
@@ -20,7 +21,11 @@ const contacts = [
         value: "github.com/BreakingLead",
         href: "https://github.com/BreakingLead",
     },
-    { label: "博客", value: "infmemories.netlify.app/blog", href: "/blog/" },
+    {
+        label: "博客",
+        value: "breakinglead.github.io/shattered_memories_blog/blog",
+        href: withBase("/blog/"),
+    },
     { label: "地点", value: "上海 / 远程" },
 ];
 
@@ -77,7 +82,7 @@ const projects = [
     },
     {
         name: "技术写作与笔记",
-        href: "/blog/",
+        href: withBase("/blog/"),
         meta: "图形学 · 编程语言 · Rust · 数学",
         summary: "长期在知乎等网站上发布技术相关内容。",
         points: ["涵盖CG/数学/函数式编程等方面"],
@@ -121,6 +126,8 @@ const skillGroups = [
         items: ["形式化验证", "类型系统", "依赖类型", "System F", "范畴论"],
     },
 ];
+const cvZhUrl = withBase("/cv/zh/");
+const cvEnUrl = withBase("/cv/en/");
 ---
 
 <!doctype html>
@@ -132,8 +139,8 @@ const skillGroups = [
         <Header />
         <main class="cv-shell">
             <nav class="cv-language" aria-label="CV language">
-                <a class="active" href="/cv/zh/" aria-current="page">中文</a>
-                <a href="/cv/en/">English</a>
+                <a class="active" href={cvZhUrl} aria-current="page">中文</a>
+                <a href={cvEnUrl}>English</a>
             </nav>
 
             <section class="cv-hero" aria-labelledby="cv-title">

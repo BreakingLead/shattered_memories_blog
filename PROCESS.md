@@ -20,6 +20,7 @@
 - `9b0a9d1` - Document Obsidian image assets. Recorded the image publishing workflow, principles, verification steps, and implementation commit hash in this process log.
 - `bdb71c6` - Replace about page with CV. Added the `/cv/` resume page, moved navigation from `About` to `CV`, removed the starter about page, and added CV-specific styles.
 - `947375e` - Split CV into Chinese and English pages. Moved the English CV to `/cv/en/`, added a Chinese CV at `/cv/zh/`, kept `/cv/` as a redirect, and added language switching.
+- Pending - Configure GitHub Pages deployment. Switched production URLs to `https://breakinglead.github.io/shattered_memories_blog/`, added base-path-safe internal links, and configured the Pages workflow for `master`.
 
 ## Work Process
 
@@ -54,6 +55,8 @@ For the current content checkpoint, I inspected the worktree before writing this
 For the CV page migration, I replaced the starter `about.astro` route with `src/pages/cv.astro` and updated the header navigation from `About` to `CV`. The public resume content was based on `/mnt/ssdmain/note/ira-memories/簡歷.typ`, the existing homepage summary, and the public GitHub profile for `BreakingLead`. I kept private contact details such as phone and WeChat out of the public page, while retaining email, GitHub, blog, project, skill, experience, and education information. CV-specific styling lives in `src/styles/cv.css` instead of expanding global or homepage CSS.
 
 For the bilingual CV split, I moved the original English resume to `src/pages/cv/en.astro`, added a Chinese version at `src/pages/cv/zh.astro`, and kept `/cv/` as a lightweight redirect page to `/cv/zh/`. Both language pages share `src/styles/cv.css` and include an in-page language switcher, while the site header points to the Chinese CV as the default public entry.
+
+For the GitHub Pages deployment pass, I changed Astro's production `site` back to `https://breakinglead.github.io` and set `base` to `/shattered_memories_blog` because this repository deploys as a project site. I added `src/lib/paths.ts` so component and page links can consistently prepend `import.meta.env.BASE_URL`, updated RSS and CV/blog links to use it, and added a Markdown rehype pass that prefixes root-relative Markdown `href` and `src` values such as `/obsidian-assets/...`. The GitHub Pages workflow now listens to the current local branch, `master`, and uses the existing Astro Pages action flow.
 
 ## Theme Principle
 
@@ -107,3 +110,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Current verification before this note: `git status --short` shows only `src/content/blog/07_数学/高等几何/周兴和.md` plus this `PROCESS.md` edit as pending work.
 - The CV route migration was verified with `pnpm build`, which generated `dist/cv/index.html` and no longer generated an `/about/` route. The implementation commit is `bdb71c6`.
 - The bilingual CV split was verified with `pnpm build`, which generated `dist/cv/index.html`, `dist/cv/zh/index.html`, and `dist/cv/en/index.html`. The implementation commit is `947375e`.
+- The GitHub Pages deployment configuration was verified with `pnpm build`, which generated 107 pages. A `rg -P '(?:href|src)="/(?!shattered_memories_blog(?:/|")|_astro/)' dist -n` scan found no unprefixed root-relative links in generated `href` or `src` attributes, and sampled RSS/CV/blog article output uses `https://breakinglead.github.io/shattered_memories_blog/` or `/shattered_memories_blog/...` URLs. The commit hash is pending.

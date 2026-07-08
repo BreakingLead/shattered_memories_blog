@@ -3,6 +3,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { SITE_TITLE } from '../../consts';
+import { withBase } from '../../lib/paths';
 import '../../styles/cv.css';
 
 const pageTitle = `CV | ${SITE_TITLE}`;
@@ -12,7 +13,11 @@ const description =
 const contacts = [
 	{ label: 'Email', value: 'breakingleadqwq@gmail.com', href: 'mailto:breakingleadqwq@gmail.com' },
 	{ label: 'GitHub', value: 'github.com/BreakingLead', href: 'https://github.com/BreakingLead' },
-	{ label: 'Blog', value: 'infmemories.netlify.app/blog', href: '/blog/' },
+	{
+		label: 'Blog',
+		value: 'breakinglead.github.io/shattered_memories_blog/blog',
+		href: withBase('/blog/'),
+	},
 	{ label: 'Location', value: 'Shanghai / Remote' },
 ];
 
@@ -67,7 +72,7 @@ const projects = [
 	},
 	{
 		name: 'Technical Writing',
-		href: '/blog/',
+		href: withBase('/blog/'),
 		meta: 'Graphics · Programming Languages · Rust · Mathematics',
 		summary:
 			'Maintains notes and essays on graphics libraries, C/C++ linkage, CPS, ASTs, Zig, Rust, math, and language learning.',
@@ -93,6 +98,8 @@ const skillGroups = [
 		items: ['Formal Verification', 'Type Systems', 'Dependent Types', 'System F', 'Category Theory'],
 	},
 ];
+const cvZhUrl = withBase('/cv/zh/');
+const cvEnUrl = withBase('/cv/en/');
 ---
 
 <!doctype html>
@@ -104,8 +111,8 @@ const skillGroups = [
 		<Header />
 		<main class="cv-shell">
 			<nav class="cv-language" aria-label="CV language">
-				<a href="/cv/zh/">中文</a>
-				<a class="active" href="/cv/en/" aria-current="page">English</a>
+				<a href={cvZhUrl}>中文</a>
+				<a class="active" href={cvEnUrl} aria-current="page">English</a>
 			</nav>
 
 			<section class="cv-hero" aria-labelledby="cv-title">

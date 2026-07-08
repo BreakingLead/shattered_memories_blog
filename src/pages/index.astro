@@ -3,6 +3,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { withBase } from "../lib/paths";
 import "../styles/home.css";
 
 const profile = {
@@ -43,6 +44,7 @@ const experience = [
     "Delivered Python automation, OpenCV, pandas, and data-processing tools as a freelance developer.",
     "Maintained 55+ open source repositories with 100+ GitHub stars.",
 ];
+const blogUrl = withBase("/blog/");
 ---
 
 <!doctype html>
@@ -102,7 +104,7 @@ const experience = [
                                 </div>
                                 <div>
                                     <dt>writing</dt>
-                                    <dd><a href="/blog/">/blog</a></dd>
+                                    <dd><a href={blogUrl}>/blog</a></dd>
                                 </div>
                             </dl>
                         </div>
