@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -51,6 +52,22 @@ const experience = [
     "Maintained 55+ open source repositories with 100+ GitHub stars.",
 ];
 const blogUrl = withBase("/blog/");
+const dateFormatter = new Intl.DateTimeFormat("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+});
+const latestPosts = (await getCollection("blog"))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 5)
+    .map((post) => ({
+        title: post.data.title,
+        description: post.data.description,
+        pubDate: post.data.pubDate,
+        formattedDate: dateFormatter.format(post.data.pubDate),
+        href: withBase(`/blog/${post.id}/`),
+        path: `/blog/${post.id}`,
+    }));
 ---
 
 <!doctype html>
@@ -177,6 +194,29 @@ const blogUrl = withBase("/blog/");
                         </div>
                     </aside>
                 </div>
+            </section>
+            <section class="latest-panel" aria-labelledby="latest-posts-title">
+                <div class="latest-header">
+                    <div>
+                        <p class="prompt"><span>$</span> tail -n 5 ./blog</p>
+                        <h2 id="latest-posts-title">Latest Posts</h2>
+                    </div>
+                    <a class="latest-all" href={blogUrl}>View all</a>
+                </div>
+                <ol class="latest-list">
+                    {
+                        latestPosts.map((post) => (
+                            <li>
+                                <a href={post.href}>
+                                    <span class="latest-title">{post.title}</span>
+                                    <span class="latest-date">{post.formattedDate}</span>
+                                </a>
+                                {post.description && <p>{post.description}</p>}
+                                <span class="latest-path">{post.path}</span>
+                            </li>
+                        ))
+                    }
+                </ol>
             </section>
         </main>
         <Footer />
