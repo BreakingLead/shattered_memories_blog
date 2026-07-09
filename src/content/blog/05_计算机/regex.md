@@ -2,7 +2,7 @@
 blog-publish: true
 title: "regex"
 description: "cap"
-pubDate: 2026-06-25
+pubDate: 2026-07-06
 ---
 
 cap

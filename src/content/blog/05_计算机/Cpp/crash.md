@@ -2,7 +2,7 @@
 blog-publish: true
 title: "crash"
 description: "new c++ int myintptr = new int{ 42 }; delete myintptr; int myintarrayptr = new int[s]; // s could be const or noncons..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 ## new

@@ -2,7 +2,7 @@
 blog-publish: true
 title: "bash"
 description: "BASH echo n no \\n e 转义引号中的特殊 third a && b a success then b a || b a not success then b ext 设置 bash set o noglob set f..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 # BASH

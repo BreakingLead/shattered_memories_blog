@@ -2,7 +2,7 @@
 blog-publish: true
 title: "git"
 description: "git checkout b = git switch 新建分支并立即切换 git branch xxx create a new branch git branch d delete git checkout b name star..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 `git checkout -b = git switch ` 新建分支并立即切换

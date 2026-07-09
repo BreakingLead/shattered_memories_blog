@@ -2,7 +2,7 @@
 blog-publish: true
 title: "scheme"
 description: "论尾递归的114514种写法 scheme (define (sumft from to) (let loop [(acc 0) (i from)] (if (= i (+ 1 to)) acc (loop (+ acc i) (+ ..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 ## 论尾递归的114514种写法

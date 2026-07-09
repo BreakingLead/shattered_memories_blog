@@ -2,7 +2,7 @@
 blog-publish: true
 title: "lecture 1 2"
 description: "SVM 损失 SVM Loss 的计算：将其他类别的得分减去正确类别的得分，加上阈值（margin），再求和。 公式中的 $1$ 是为了扣除本组（正确分类）被多算的那一项——正确类别对自己的 margin 总是 $0$，不应该计入损失..."
-pubDate: 2026-06-25
+pubDate: 2026-07-06
 ---
 
 ## SVM 损失

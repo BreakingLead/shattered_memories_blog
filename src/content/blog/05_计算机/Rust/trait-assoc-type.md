@@ -2,7 +2,7 @@
 blog-publish: true
 title: "trait-assoc-type"
 description: "使用泛型时，则不得不在每一个实现中标注类型；这是因为我们也可以实现为 Iterator<String for Counter 使用关联类型后，则无需标注类型，因为不能对同一个类型多次实现该 trait。 add 方法将两个 Point..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 使用泛型时，则不得不在每一个实现中标注类型；这是因为我们也可以实现为 `Iterator<String> for Counter`

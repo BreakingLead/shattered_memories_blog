@@ -2,7 +2,7 @@
 blog-publish: true
 title: "pnp"
 description: "(5 封私信) P问题与NP问题怎么通俗理解？ 知乎 P类问题的概念：如果一个问题可以找到一个能在多项式的时间里解决它的算法，那么这个问题就属于P问题。 NP问题是指可以在多项式的时间里验证一个解的问题。 约化：一个问题A可以约化为问..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 [(5 封私信) P问题与NP问题怎么通俗理解？ - 知乎](https://www.zhihu.com/question/67578069/answer/2577160580)

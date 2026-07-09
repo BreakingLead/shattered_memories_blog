@@ -2,7 +2,7 @@
 blog-publish: true
 title: "nushell"
 description: "describe 描述类型 echo 只是 return 一行太长可以这样 rust let a = ( \"01/22/2021\" | parse \"{mm}/{dd}/{yy}\"| get year ) 管道 当使用分号时，不会产生..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 `describe` 描述类型

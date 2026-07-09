@@ -2,7 +2,7 @@
 blog-publish: true
 title: "eopl_ch1"
 description: "有三種方式定義一個 $S=\\{0,3,6,9,...\\} \\subset \\mathbb{N}$ 的集合 1. 自頂向下，描述哪些元素屬於 $S$，即 $n \\in S \\iff:$ 1. $n=0$ 2. $n3 \\in S$ 2...."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 有三種方式定義一個 $S=\{0,3,6,9,...\} \subset \mathbb{N}$ 的集合

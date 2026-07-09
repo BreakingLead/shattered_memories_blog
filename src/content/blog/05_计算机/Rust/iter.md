@@ -2,7 +2,7 @@
 blog-publish: true
 title: "iter"
 description: "Rust 迭代器 在 Rust 中，迭代器是惰性的（lazy）——在调用消费性方法之前，迭代器不会做任何实际工作。 rust let v = vec![1, 2, 3]; let iter = v.iter(); // 什么都没发生 ..."
-pubDate: 2026-06-25
+pubDate: 2026-07-06
 ---
 
 # Rust 迭代器

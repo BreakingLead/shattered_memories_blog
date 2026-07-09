@@ -2,7 +2,7 @@
 blog-publish: true
 title: "borrow-asref"
 description: "(6 封私信) Rust的Borrow和AsRef：让你的代码用起来像呼吸一样自然 知乎 Borrow：强调逻辑一致的借用 Borrow的功能就像它的名字一样：借用。它需要实现者提供一个borrow方法的实现： rust pub tr..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 [(6 封私信) Rust的Borrow和AsRef：让你的代码用起来像呼吸一样自然 - 知乎](https://zhuanlan.zhihu.com/p/684078465)

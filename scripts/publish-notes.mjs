@@ -2,7 +2,7 @@ import { copyFile, mkdir, readdir, readFile, stat, writeFile } from 'node:fs/pro
 import path from 'node:path';
 
 const repoRoot = process.cwd();
-const sourceRoot = process.argv[2] ? path.resolve(process.argv[2]) : '/mnt/ssdmain/note';
+const sourceRoot = process.argv[2] ? path.resolve(process.argv[2]) : '/home/leaduwu-nix/note';
 const targetRoot = process.argv[3]
 	? path.resolve(process.argv[3])
 	: path.join(repoRoot, 'src/content/blog');

@@ -2,7 +2,7 @@
 blog-publish: true
 title: "class inheritance rule"
 description: "cpp cpp class A { public: int x; protected: int y; private: int z; }; class B : public A { // x is public // y is pro..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 #cpp

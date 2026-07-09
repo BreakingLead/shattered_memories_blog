@@ -2,7 +2,7 @@
 blog-publish: true
 title: "Phonetics"
 description: "Phonetics"
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 ![Pasted image 20240722072343](/obsidian-assets/pasted-image-20240722072343.png)

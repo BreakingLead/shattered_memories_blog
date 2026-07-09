@@ -2,7 +2,7 @@
 blog-publish: true
 title: "graphics index"
 description: "infancy.github.io PBRT V3 从零到完全吃透系列 | Dezeming Family"
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 [infancy.github.io](https://infancy.github.io/smallpt2pbrt.html)

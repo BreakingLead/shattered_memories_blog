@@ -2,7 +2,7 @@
 blog-publish: true
 title: "Rvalue Reference"
 description: "右值引用专门为右值而生，可以指向右值，不能指向左值 std::move() 只将左值提升为一个右值引用，等于 staticcast<T&& lvalue 被声明（有名字的）出来的左、右值引用都是左值。 cpp int a = 1; /..."
-pubDate: 2026-06-23
+pubDate: 2026-07-06
 ---
 
 右值引用专门为右值而生，**可以指向右值，不能指向左值**

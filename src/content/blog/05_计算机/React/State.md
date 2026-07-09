@@ -2,7 +2,7 @@
 blog-publish: true
 title: "State"
 description: "React State useState 中的 setXX 并不会立即改变 XX 的值，它只是告诉 React 在下一轮渲染时记住新的值。 js setNumber(n = n + 1); 更新函数 如果新状态依赖旧状态，应使用函数形..."
-pubDate: 2026-06-25
+pubDate: 2026-07-06
 ---
 
 # React State
