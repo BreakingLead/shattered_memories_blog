@@ -21,7 +21,8 @@
 - `bdb71c6` - Replace about page with CV. Added the `/cv/` resume page, moved navigation from `About` to `CV`, removed the starter about page, and added CV-specific styles.
 - `947375e` - Split CV into Chinese and English pages. Moved the English CV to `/cv/en/`, added a Chinese CV at `/cv/zh/`, kept `/cv/` as a redirect, and added language switching.
 - Pending - Configure GitHub Pages deployment. Switched production URLs to `https://breakinglead.github.io/shattered_memories_blog/`, added base-path-safe internal links, and configured the Pages workflow for `master`.
-- Pending - Continue the C tutorial series. Added `c-tutorial-1.md` as a new lesson about variables, scope, function parameters, null pointers, and dangling pointers.
+- `38fd85d` - Continue the C tutorial series. Added `c-tutorial-1.md` as a new lesson about variables, scope, function parameters, null pointers, and dangling pointers.
+- Pending - Explain dynamic memory in the C tutorial. Added `c-tutorial-2.md` as a new lesson about stack frames, storage duration, dynamic allocation, ownership, and memory errors.
 
 ## Work Process
 
@@ -61,6 +62,8 @@ For the GitHub Pages deployment pass, I changed Astro's production `site` back t
 
 For the second C tutorial lesson, I read the completed `c-tutorial-0.md` first and kept its memory-model teaching frame. The new article separates declaration, definition, and initialization; distinguishes scope from lifetime; explains C's pass-by-value model through pointer parameters; and connects array decay, `NULL`, and dangling pointers to the question of whether an address still refers to a live object. The ending deliberately leads into stack storage, heap storage, and `malloc` for the next lesson.
 
+For the third C tutorial lesson, I followed the previous article's explicit lead into stack storage, heap storage, and `malloc`. The article treats stack frames as a useful implementation model while distinguishing them from C's storage-duration rules, then uses object lifetime to connect returning local addresses, recursion depth, dynamic allocation, allocation failure, `free`, use-after-free, leaks, and ownership. The ending leads into `calloc`, `realloc`, `memcpy`, and string copying.
+
 ## Theme Principle
 
 The light/dark mode works through CSS custom properties. `theme.css` defines semantic tokens such as `--bg`, `--text`, `--surface`, `--border`, and `--accent`. A small inline script in `BaseHead.astro` reads `localStorage.theme`, falls back to `prefers-color-scheme`, and sets `document.documentElement.dataset.theme`. Components then use the same semantic variables, so switching theme only changes token values rather than duplicating component styles.
@@ -93,6 +96,7 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Obsidian image embeds are editor-specific syntax, not portable Markdown. Published notes should use public/static asset URLs so Astro and deployed static hosts can serve them without Obsidian resolution logic.
 - Asset filenames need URL-safe normalization, but the original filename should remain the lookup key. This lets notes keep human-readable Obsidian names while the site serves predictable lowercase paths.
 - Tutorial installments should advance one conceptual layer at a time. Reusing the previous lesson's memory and address model made scope, lifetime, and pointer validity feel like consequences of the same model instead of unrelated C rules.
+- Explanations of stack and heap should separate common machine implementation from language guarantees. Object lifetime and ownership remain correct teaching anchors even when optimization removes a variable or keeps it in a register.
 
 ## Verification
 
@@ -115,4 +119,5 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The CV route migration was verified with `pnpm build`, which generated `dist/cv/index.html` and no longer generated an `/about/` route. The implementation commit is `bdb71c6`.
 - The bilingual CV split was verified with `pnpm build`, which generated `dist/cv/index.html`, `dist/cv/zh/index.html`, and `dist/cv/en/index.html`. The implementation commit is `947375e`.
 - The GitHub Pages deployment configuration was verified with `pnpm build`, which generated 107 pages. A `rg -P '(?:href|src)="/(?!shattered_memories_blog(?:/|")|_astro/)' dist -n` scan found no unprefixed root-relative links in generated `href` or `src` attributes, and sampled RSS/CV/blog article output uses `https://breakinglead.github.io/shattered_memories_blog/` or `/shattered_memories_blog/...` URLs. The commit hash is pending.
-- The second C tutorial lesson was verified with `pnpm build`, which generated 110 pages including `/blog/c-tutorial-1/index.html`. The commit hash is pending.
+- The second C tutorial lesson was verified with `pnpm build`, which generated 110 pages including `/blog/c-tutorial-1/index.html`. The implementation commit is `38fd85d`.
+- The third C tutorial lesson was verified with `pnpm build`, which generated 111 pages including `/blog/c-tutorial-2/index.html`. The commit hash is pending.
