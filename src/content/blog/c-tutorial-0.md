@@ -1,6 +1,6 @@
 ---
 title: 从指针开始讲起的 C 语言教程 0
-pubDate: 2024-07-21
+pubDate: 2026-07-12
 description: 又一个另辟蹊径的 C 语言教程
 tags:
   - programming
