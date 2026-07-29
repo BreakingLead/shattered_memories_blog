@@ -23,6 +23,7 @@
 - Pending - Configure GitHub Pages deployment. Switched production URLs to `https://breakinglead.github.io/shattered_memories_blog/`, added base-path-safe internal links, and configured the Pages workflow for `master`.
 - `38fd85d` - Continue the C tutorial series. Added `c-tutorial-1.md` as a new lesson about variables, scope, function parameters, null pointers, and dangling pointers.
 - Pending - Explain dynamic memory in the C tutorial. Added `c-tutorial-2.md` as a new lesson about stack frames, storage duration, dynamic allocation, ownership, and memory errors.
+- Pending - Export the Chinese CV to Typst. Added a print-oriented A4 source and compiled PDF under `resume/`, preserving the public `/cv/zh/` content and the site's blue-gray terminal-card visual language.
 
 ## Work Process
 
@@ -64,6 +65,8 @@ For the second C tutorial lesson, I read the completed `c-tutorial-0.md` first a
 
 For the third C tutorial lesson, I followed the previous article's explicit lead into stack storage, heap storage, and `malloc`. The article treats stack frames as a useful implementation model while distinguishing them from C's storage-duration rules, then uses object lifetime to connect returning local addresses, recursion depth, dynamic allocation, allocation failure, `free`, use-after-free, leaks, and ownership. The ending leads into `calloc`, `realloc`, `memcpy`, and string copying.
 
+For the Typst CV export, I used `src/pages/cv/zh.astro` as the canonical content source rather than maintaining a differently worded resume. The print layout translates the website's bordered panels, muted metadata, monospace labels, and blue accent into a single A4 page. Reusable Typst helpers define section rules, cards, project entries, experience rows, tags, and bullet lists, while links remain clickable in the generated PDF.
+
 ## Theme Principle
 
 The light/dark mode works through CSS custom properties. `theme.css` defines semantic tokens such as `--bg`, `--text`, `--surface`, `--border`, and `--accent`. A small inline script in `BaseHead.astro` reads `localStorage.theme`, falls back to `prefers-color-scheme`, and sets `document.documentElement.dataset.theme`. Components then use the same semantic variables, so switching theme only changes token values rather than duplicating component styles.
@@ -97,6 +100,7 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Asset filenames need URL-safe normalization, but the original filename should remain the lookup key. This lets notes keep human-readable Obsidian names while the site serves predictable lowercase paths.
 - Tutorial installments should advance one conceptual layer at a time. Reusing the previous lesson's memory and address model made scope, lifetime, and pointer validity feel like consequences of the same model instead of unrelated C rules.
 - Explanations of stack and heap should separate common machine implementation from language guarantees. Object lifetime and ownership remain correct teaching anchors even when optimization removes a variable or keeps it in a register.
+- A web resume and a print resume can share content without sharing layout. Translating the visual hierarchy into A4-specific grids and unbreakable cards keeps the PDF scannable while avoiding fragile browser-print CSS.
 
 ## Verification
 
@@ -121,3 +125,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The GitHub Pages deployment configuration was verified with `pnpm build`, which generated 107 pages. A `rg -P '(?:href|src)="/(?!shattered_memories_blog(?:/|")|_astro/)' dist -n` scan found no unprefixed root-relative links in generated `href` or `src` attributes, and sampled RSS/CV/blog article output uses `https://breakinglead.github.io/shattered_memories_blog/` or `/shattered_memories_blog/...` URLs. The commit hash is pending.
 - The second C tutorial lesson was verified with `pnpm build`, which generated 110 pages including `/blog/c-tutorial-1/index.html`. The implementation commit is `38fd85d`.
 - The third C tutorial lesson was verified with `pnpm build`, which generated 111 pages including `/blog/c-tutorial-2/index.html`. The commit hash is pending.
+- The Chinese Typst CV was verified with `typst compile resume/zh.typ resume/zh.pdf`; the result is a single A4 page with clickable links and no compile errors.
