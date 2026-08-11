@@ -24,6 +24,7 @@
 - `38fd85d` - Continue the C tutorial series. Added `c-tutorial-1.md` as a new lesson about variables, scope, function parameters, null pointers, and dangling pointers.
 - Pending - Explain dynamic memory in the C tutorial. Added `c-tutorial-2.md` as a new lesson about stack frames, storage duration, dynamic allocation, ownership, and memory errors.
 - Pending - Export the Chinese CV to Typst. Added a print-oriented A4 source and compiled PDF under `resume/`, preserving the public `/cv/zh/` content and the site's blue-gray terminal-card visual language.
+- `eb305d9` - Refactor Chinese resume with Golixp template. Replaced the custom Typst component layer with `golixp-resume-zh-cn` 0.1.2 components and regenerated the one-page PDF.
 
 ## Work Process
 
@@ -67,6 +68,8 @@ For the third C tutorial lesson, I followed the previous article's explicit lead
 
 For the Typst CV export, I used `src/pages/cv/zh.astro` as the canonical content source rather than maintaining a differently worded resume. The print layout translates the website's bordered panels, muted metadata, monospace labels, and blue accent into a single A4 page. Reusable Typst helpers define section rules, cards, project entries, experience rows, tags, and bullet lists, while links remain clickable in the generated PDF.
 
+For the Golixp template refactor, I initialized the official `golixp-resume-zh-cn` 0.1.2 package example and checked its public configuration and component APIs before editing. `resume/zh.typ` now imports the package and expresses the document through `resume-doc`, `personal-header`, section/item components, and the package's two-column layout. Configuration overrides retain the existing Sarasa fonts, blue-gray palette, tight spacing, and A4 margins, while the résumé wording and URLs remain intact. I compiled the source, rendered the PDF to PNG for visual inspection, and kept the result to one page.
+
 ## Theme Principle
 
 The light/dark mode works through CSS custom properties. `theme.css` defines semantic tokens such as `--bg`, `--text`, `--surface`, `--border`, and `--accent`. A small inline script in `BaseHead.astro` reads `localStorage.theme`, falls back to `prefers-color-scheme`, and sets `document.documentElement.dataset.theme`. Components then use the same semantic variables, so switching theme only changes token values rather than duplicating component styles.
@@ -101,6 +104,7 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Tutorial installments should advance one conceptual layer at a time. Reusing the previous lesson's memory and address model made scope, lifetime, and pointer validity feel like consequences of the same model instead of unrelated C rules.
 - Explanations of stack and heap should separate common machine implementation from language guarantees. Object lifetime and ownership remain correct teaching anchors even when optimization removes a variable or keeps it in a register.
 - A web resume and a print resume can share content without sharing layout. Translating the visual hierarchy into A4-specific grids and unbreakable cards keeps the PDF scannable while avoiding fragile browser-print CSS.
+- A third-party Typst template is easiest to maintain when document content uses its semantic components and visual identity is limited to supported configuration overrides. Rendering the generated PDF remains necessary because successful compilation alone does not reveal clipping, overflow, or poor information density.
 
 ## Verification
 
@@ -126,3 +130,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The second C tutorial lesson was verified with `pnpm build`, which generated 110 pages including `/blog/c-tutorial-1/index.html`. The implementation commit is `38fd85d`.
 - The third C tutorial lesson was verified with `pnpm build`, which generated 111 pages including `/blog/c-tutorial-2/index.html`. The commit hash is pending.
 - The Chinese Typst CV was verified with `typst compile resume/zh.typ resume/zh.pdf`; the result is a single A4 page with clickable links and no compile errors.
+- The Golixp refactor was verified with Typst 0.14.2, `pdfinfo`, a 144-PPI PNG render, `git diff --check` on the source, and `pnpm build`, which generated 135 pages. The regenerated PDF remains a single A4 page. The implementation commit is `eb305d9`.
