@@ -61,12 +61,6 @@
 )
 
 #set text(fill: ink)
-#set page(
-	footer: context [
-		#set text(size: 6.5pt, fill: subtle)
-		#align(center)[千秋 · 中文简历 · #counter(page).display("1 / 1", both: true)]
-	],
-)
 #show link: set text(fill: accent-strong)
 
 #personal-header(
@@ -206,5 +200,4 @@
 	"高中",
 	"理科",
 	honors: ("2021 年 NOIP 入门组二等奖",),
-	description: [#icon-link("https://github.com/BreakingLead", "github", text-content: "GitHub: BreakingLead") #h(0.5em) #text(fill: muted)[Computer Graphics · Rustacean · Lisp User]],
 )
