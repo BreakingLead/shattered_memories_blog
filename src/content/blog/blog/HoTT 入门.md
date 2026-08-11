@@ -2,7 +2,7 @@
 blog-publish: true
 title: "HoTT 入门"
 description: "如果只记一句： HoTT 把等号看成路。 HoTT 是 Homotopy Type Theory，同伦类型论。 HoTT 无需先修同伦论。入门时甚至不需要拓扑。先把“类型—元素—等号”换一种读法就够了。 命题是类型 先从普通类型论开始..."
-pubDate: 2026-07-29
+pubDate: 2026-08-08
 ---
 
 如果只记一句：
@@ -254,4 +254,4 @@ Lean 4 可以练依值类型，但内建的 `Eq` 位于 `Prop`。由于证明无
 > 等价可以成为相等。  
 > 空间可以由点和路直接生成。
 
-相关：[[05_计算机/lean|Lean]]、[[05_计算机/PLT/书|PLT 书单]]
+相关：[[lean|Lean]]、[[05_计算机/PLT/书|PLT 书单]]
