@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
+import remarkObsidian from './src/lib/remark-obsidian.mjs';
 
 const githubPagesBase = '/shattered_memories_blog';
 const withBasePath = (path) => `${githubPagesBase.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
@@ -40,7 +41,7 @@ export default defineConfig({
 	markdown: {
 		processor: unified({
 			smartypants: false,
-			remarkPlugins: [remarkMath],
+			remarkPlugins: [remarkMath, remarkObsidian],
 			rehypePlugins: [rehypeKatex, prefixRootRelativeUrls],
 		}),
 	},

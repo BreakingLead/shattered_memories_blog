@@ -84,6 +84,42 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				overflow-y: hidden;
 				padding: 0.5rem 0;
 			}
+			.prose :global(.callout) {
+				--callout-color: var(--accent);
+				margin: 1.5rem 0;
+				padding: 0.9rem 1rem;
+				border: 1px solid color-mix(in srgb, var(--callout-color) 45%, var(--border));
+				border-left: 0.3rem solid var(--callout-color);
+				border-radius: 0.5rem;
+				background: color-mix(in srgb, var(--callout-color) 9%, var(--surface));
+			}
+			.prose :global(.callout-title) {
+				margin: 0 0 0.45rem;
+				color: var(--callout-color);
+				font-weight: 700;
+			}
+			.prose :global(.callout > :last-child) {
+				margin-bottom: 0;
+			}
+			.prose :global(.callout-warning),
+			.prose :global(.callout-caution),
+			.prose :global(.callout-important) {
+				--callout-color: #d98e04;
+			}
+			.prose :global(.callout-danger),
+			.prose :global(.callout-error),
+			.prose :global(.callout-failure),
+			.prose :global(.callout-bug) {
+				--callout-color: #d94b4b;
+			}
+			.prose :global(.callout-success),
+			.prose :global(.callout-tip) {
+				--callout-color: #2f9e72;
+			}
+			.prose :global(.internal-link.unresolved) {
+				text-decoration-style: dashed;
+				text-decoration-color: #d94b4b;
+			}
 		</style>
 	</head>
 
