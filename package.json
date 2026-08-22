@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "check:obsidian": "node scripts/check-obsidian-rendering.mjs",
+    "check:obsidian": "astro sync --force && astro build && node scripts/check-obsidian-rendering.mjs",
     "preview": "astro preview",
     "publish:notes": "node scripts/publish-notes.mjs",
     "astro": "astro"

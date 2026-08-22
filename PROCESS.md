@@ -25,6 +25,7 @@
 - Pending - Explain dynamic memory in the C tutorial. Added `c-tutorial-2.md` as a new lesson about stack frames, storage duration, dynamic allocation, ownership, and memory errors.
 - Pending - Export the Chinese CV to Typst. Added a print-oriented A4 source and compiled PDF under `resume/`, preserving the public `/cv/zh/` content and the site's blue-gray terminal-card visual language.
 - `eb305d9` - Refactor Chinese resume with Golixp template. Replaced the custom Typst component layer with `golixp-resume-zh-cn` 0.1.2 components and regenerated the one-page PDF.
+- `1888fab` - Render Obsidian Markdown syntax. Added wiki-link, image-embed, and callout rendering with route-aware link resolution and regression checks.
 
 ## Work Process
 
@@ -70,6 +71,8 @@ For the Typst CV export, I used `src/pages/cv/zh.astro` as the canonical content
 
 For the Golixp template refactor, I initialized the official `golixp-resume-zh-cn` 0.1.2 package example and checked its public configuration and component APIs before editing. `resume/zh.typ` now imports the package and expresses the document through `resume-doc`, `personal-header`, section/item components, and the package's two-column layout. Configuration overrides retain the existing Sarasa fonts, blue-gray palette, tight spacing, and A4 margins, while the résumé wording and URLs remain intact. I compiled the source, rendered the PDF to PNG for visual inspection, and kept the result to one page.
 
+For the Obsidian rendering fix, I first built the current site and confirmed that wiki links, image embeds, and callout markers survived as literal text in generated article HTML. I added a local remark plugin that indexes published notes, resolves Obsidian targets through the same GitHub-style slugging Astro uses, converts embeds to public asset URLs, and turns callout blockquotes into semantic `aside` elements. Existing targets receive normal internal links, duplicate basenames use the shortest relative path, and missing or equally close ambiguous targets are marked unresolved. A generated-output check covers a heading link, an embedded image, a titled callout, an unpublished-note link, and duplicate-name resolution.
+
 ## Theme Principle
 
 The light/dark mode works through CSS custom properties. `theme.css` defines semantic tokens such as `--bg`, `--text`, `--surface`, `--border`, and `--accent`. A small inline script in `BaseHead.astro` reads `localStorage.theme`, falls back to `prefers-color-scheme`, and sets `document.documentElement.dataset.theme`. Components then use the same semantic variables, so switching theme only changes token values rather than duplicating component styles.
@@ -105,6 +108,8 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - Explanations of stack and heap should separate common machine implementation from language guarantees. Object lifetime and ownership remain correct teaching anchors even when optimization removes a variable or keeps it in a register.
 - A web resume and a print resume can share content without sharing layout. Translating the visual hierarchy into A4-specific grids and unbreakable cards keeps the PDF scannable while avoiding fragile browser-print CSS.
 - A third-party Typst template is easiest to maintain when document content uses its semantic components and visual identity is limited to supported configuration overrides. Rendering the generated PDF remains necessary because successful compilation alone does not reveal clipping, overflow, or poor information density.
+- Obsidian links cannot be rendered correctly by string replacement alone: note paths and heading fragments must follow the static site's slug rules, and unpublished targets need an explicit unresolved state.
+- Regression checks against generated HTML are a useful public seam for Markdown extensions because they cover remark parsing, rehype conversion, base-path rewriting, and the final Astro build together.
 
 ## Verification
 
@@ -131,3 +136,4 @@ The important fix was to prefer the standard plugin chain over a project-local r
 - The third C tutorial lesson was verified with `pnpm build`, which generated 111 pages including `/blog/c-tutorial-2/index.html`. The commit hash is pending.
 - The Chinese Typst CV was verified with `typst compile resume/zh.typ resume/zh.pdf`; the result is a single A4 page with clickable links and no compile errors.
 - The Golixp refactor was verified with Typst 0.14.2, `pdfinfo`, a 144-PPI PNG render, `git diff --check` on the source, and `pnpm build`, which generated 135 pages. The regenerated PDF remains a single A4 page. The implementation commit is `eb305d9`.
+- Obsidian rendering was verified with `pnpm astro sync --force`, `pnpm build`, and `pnpm check:obsidian`. The build generated 140 pages; generated article bodies contain 33 internal wiki links, 19 callouts, and 72 Obsidian asset images without leaking raw `[[...]]` or `[!type]` markers. The implementation commit is `1888fab`.

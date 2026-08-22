@@ -40,4 +40,11 @@ assert.match(
 	'Wiki links to unpublished notes should be visibly marked as unresolved',
 );
 
+const ambiguousLinkPost = await readBuiltPost('blog/hott-入门');
+assert.match(
+	ambiguousLinkPost,
+	/<a href="\/shattered_memories_blog\/blog\/05_%E8%AE%A1%E7%AE%97%E6%9C%BA\/lean\/" class="internal-link">Lean<\/a>/,
+	'Ambiguous wiki links should resolve to the note with the shortest relative path',
+);
+
 console.log('Obsidian rendering checks passed.');

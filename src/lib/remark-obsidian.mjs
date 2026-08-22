@@ -98,7 +98,20 @@ const resolveNote = (target, sourcePath, noteIndex, contentRoot) => {
 	}
 
 	const basenameMatches = noteIndex.byBasename.get(path.posix.basename(vaultTarget)) ?? [];
-	return basenameMatches.length === 1 ? basenameMatches[0] : null;
+	if (basenameMatches.length <= 1 || !sourcePath) {
+		return basenameMatches[0] ?? null;
+	}
+
+	const sourceVaultPath = normalizeVaultPath(path.relative(contentRoot, sourcePath));
+	const sourceDirectory = path.posix.dirname(sourceVaultPath);
+	const rankedMatches = basenameMatches
+		.map((note) => ({
+			note,
+			distance: path.posix.relative(sourceDirectory, note.vaultPath).split('/').length,
+		}))
+		.sort((a, b) => a.distance - b.distance);
+
+	return rankedMatches[0].distance < rankedMatches[1].distance ? rankedMatches[0].note : null;
 };
 
 const parseEmbedSize = (value) => {
