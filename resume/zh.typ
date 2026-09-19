@@ -156,6 +156,7 @@
 			tech-stack: ("图形学", "编程语言", "Rust", "数学"),
 			responsibilities: (
 				[涵盖计算机图形学、数学、函数式编程等方向。],
+        [知乎1200 Followers, 18k 赞同]
 			),
 			link: "https://breakinglead.github.io/shattered_memories_blog/blog/",
 		)
@@ -181,7 +182,7 @@
 	[
 		#skill-category(
 			"Web 与后端",
-			("WebAssembly", "React", "Astro", "Vite", "Node.js", "Bun", "FastAPI", "Spring Boot"),
+			("WebAssembly", "React", "Astro", "Vite", "Node.js", "Bun", "FastAPI"),
 			icon-names: (none, "react"),
 		)
 		#v(0.35em)
